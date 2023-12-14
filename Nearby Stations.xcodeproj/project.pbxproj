@@ -1,0 +1,763 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		4601DA4D2B289C4700A94AE5 /* SMAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4601DA4C2B289C4700A94AE5 /* SMAnnotation.swift */; };
+		4601DA512B28A70200A94AE5 /* SMStation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4601DA502B28A70200A94AE5 /* SMStation.swift */; };
+		46133EC32B29CE3200F2398C /* OSLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46133EC22B29CE3200F2398C /* OSLog.swift */; };
+		46133EC52B29F73300F2398C /* NSSMusicManagerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46133EC42B29F73300F2398C /* NSSMusicManagerDelegate.swift */; };
+		46133EC72B2A061D00F2398C /* NSSMap+CLLocationManagerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46133EC62B2A061D00F2398C /* NSSMap+CLLocationManagerDelegate.swift */; };
+		46133EC92B2A065F00F2398C /* NSSModel+NSSStorageManagerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46133EC82B2A065F00F2398C /* NSSModel+NSSStorageManagerDelegate.swift */; };
+		46133ECB2B2A069E00F2398C /* NSSModel+NSSMapManagerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46133ECA2B2A069E00F2398C /* NSSModel+NSSMapManagerDelegate.swift */; };
+		46133ECD2B2A06BD00F2398C /* NSSModel+NSSMusicManagerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46133ECC2B2A06BD00F2398C /* NSSModel+NSSMusicManagerDelegate.swift */; };
+		46133ECF2B2A070300F2398C /* SharedNSSModelManagerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46133ECE2B2A070300F2398C /* SharedNSSModelManagerDelegate.swift */; };
+		46133ED22B2A20D700F2398C /* DebugNSSMusicManagerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46133ED12B2A20D700F2398C /* DebugNSSMusicManagerDelegate.swift */; };
+		46133ED42B2A210600F2398C /* DebugNSSMapManagerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46133ED32B2A210600F2398C /* DebugNSSMapManagerDelegate.swift */; };
+		46133ED62B2A215800F2398C /* DebugNSSStorageManagerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46133ED52B2A215800F2398C /* DebugNSSStorageManagerDelegate.swift */; };
+		46133EDA2B2A4A8A00F2398C /* DebugNSSStationManagerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46133ED92B2A4A8A00F2398C /* DebugNSSStationManagerDelegate.swift */; };
+		46133EE12B2A533E00F2398C /* DefaultNSSModelManagerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46133EE02B2A533E00F2398C /* DefaultNSSModelManagerDelegate.swift */; };
+		46133EE32B2A535A00F2398C /* DefaultNSSMapManagerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46133EE22B2A535A00F2398C /* DefaultNSSMapManagerDelegate.swift */; };
+		46133EE52B2A537700F2398C /* DefaultNSSMusicManagerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46133EE42B2A537700F2398C /* DefaultNSSMusicManagerDelegate.swift */; };
+		46133EE72B2A538E00F2398C /* DefaultNSSStationManagerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46133EE62B2A538E00F2398C /* DefaultNSSStationManagerDelegate.swift */; };
+		46133EE92B2A53A600F2398C /* DefaultNSSStorageManagerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46133EE82B2A53A600F2398C /* DefaultNSSStorageManagerDelegate.swift */; };
+		46133EEB2B2A5C3000F2398C /* SharedNSSStationManagerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46133EEA2B2A5C3000F2398C /* SharedNSSStationManagerDelegate.swift */; };
+		4618D0862B2AED4400686344 /* Collections in Frameworks */ = {isa = PBXBuildFile; productRef = 4618D0852B2AED4400686344 /* Collections */; };
+		4618D0882B2AED4400686344 /* DequeModule in Frameworks */ = {isa = PBXBuildFile; productRef = 4618D0872B2AED4400686344 /* DequeModule */; };
+		4618D08A2B2AED4400686344 /* OrderedCollections in Frameworks */ = {isa = PBXBuildFile; productRef = 4618D0892B2AED4400686344 /* OrderedCollections */; };
+		46293D362B29A887004098AB /* Collections.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46293D352B29A887004098AB /* Collections.swift */; };
+		467037ED2B21433600C2B9EC /* NSSApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 467037EC2B21433600C2B9EC /* NSSApp.swift */; };
+		467037EF2B21433600C2B9EC /* NSSMainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 467037EE2B21433600C2B9EC /* NSSMainView.swift */; };
+		467037F12B21433700C2B9EC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 467037F02B21433700C2B9EC /* Assets.xcassets */; };
+		467037F42B21433700C2B9EC /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 467037F32B21433700C2B9EC /* Preview Assets.xcassets */; };
+		467037FB2B21438A00C2B9EC /* Stations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 467037FA2B21438A00C2B9EC /* Stations.swift */; };
+		467037FD2B2143C600C2B9EC /* NSSModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 467037FC2B2143C600C2B9EC /* NSSModel.swift */; };
+		467038062B21442400C2B9EC /* NSSStation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 467038052B21442400C2B9EC /* NSSStation.swift */; };
+		4671D1AF2B284B7800236240 /* NSSStorageManagerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4671D1AE2B284B7800236240 /* NSSStorageManagerDelegate.swift */; };
+		4671D1B22B284D3000236240 /* NSSMapManagerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4671D1B12B284D3000236240 /* NSSMapManagerDelegate.swift */; };
+		467EDA6C2B24870200F8C2CE /* SalientButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 467EDA6B2B24870200F8C2CE /* SalientButtonStyle.swift */; };
+		469E554D2B25DD5600AE1DEC /* SImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 469E554C2B25DD5600AE1DEC /* SImage.swift */; };
+		469E554F2B25DF7100AE1DEC /* SMView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 469E554E2B25DF7100AE1DEC /* SMView.swift */; };
+		469E55512B25DFF900AE1DEC /* SMControls.swift in Sources */ = {isa = PBXBuildFile; fileRef = 469E55502B25DFF900AE1DEC /* SMControls.swift */; };
+		469E55532B25E0BE00AE1DEC /* SControls.swift in Sources */ = {isa = PBXBuildFile; fileRef = 469E55522B25E0BE00AE1DEC /* SControls.swift */; };
+		469E55572B25F30200AE1DEC /* SControlsDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 469E55562B25F30200AE1DEC /* SControlsDetails.swift */; };
+		469E55592B25F46700AE1DEC /* NSSStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 469E55582B25F46700AE1DEC /* NSSStyle.swift */; };
+		469E555E2B264E8D00AE1DEC /* ToggleButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 469E555D2B264E8D00AE1DEC /* ToggleButton.swift */; };
+		469E55602B264EAB00AE1DEC /* SalientCircleButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 469E555F2B264EAB00AE1DEC /* SalientCircleButtonStyle.swift */; };
+		469E55622B265EDB00AE1DEC /* NSSModelManagerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 469E55612B265EDB00AE1DEC /* NSSModelManagerDelegate.swift */; };
+		469E55642B266F8300AE1DEC /* NSSStationManagerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 469E55632B266F8300AE1DEC /* NSSStationManagerDelegate.swift */; };
+		469E55672B268EC800AE1DEC /* SProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 469E55662B268EC800AE1DEC /* SProfile.swift */; };
+		469E55692B2698A100AE1DEC /* NSSStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 469E55682B2698A100AE1DEC /* NSSStorage.swift */; };
+		469E556F2B26A02100AE1DEC /* NSSMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 469E556E2B26A02100AE1DEC /* NSSMap.swift */; };
+		46B95FCE2B2B028E0012CE5E /* DebugNSSModelManagerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46B95FCD2B2B028E0012CE5E /* DebugNSSModelManagerDelegate.swift */; };
+		46B95FD02B2B02B20012CE5E /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 46B95FCF2B2B02B20012CE5E /* .gitignore */; };
+		46CD7F9D2B275FC8003F2E92 /* NSSTips.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46CD7F9C2B275FC8003F2E92 /* NSSTips.swift */; };
+		46CD7F9F2B2777E8003F2E92 /* StationSliderTargetBehavior.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46CD7F9E2B2777E7003F2E92 /* StationSliderTargetBehavior.swift */; };
+		46CD7FA12B27B4DB003F2E92 /* SDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46CD7FA02B27B4DB003F2E92 /* SDetails.swift */; };
+		46CD7FA32B27B533003F2E92 /* IsVisible.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46CD7FA22B27B533003F2E92 /* IsVisible.swift */; };
+		46CD7FA72B27B6AC003F2E92 /* Blur.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46CD7FA62B27B6AC003F2E92 /* Blur.swift */; };
+		46CF5D3C2B21FF660068023E /* SView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46CF5D3B2B21FF660068023E /* SView.swift */; };
+		46CF5D3E2B21FFD10068023E /* NSSMusic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46CF5D3D2B21FFD10068023E /* NSSMusic.swift */; };
+		46D070A32B24E6590092333E /* PreviewStations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46D070A22B24E6590092333E /* PreviewStations.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		4601DA4C2B289C4700A94AE5 /* SMAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SMAnnotation.swift; sourceTree = "<group>"; };
+		4601DA502B28A70200A94AE5 /* SMStation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SMStation.swift; sourceTree = "<group>"; };
+		46133EC22B29CE3200F2398C /* OSLog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OSLog.swift; sourceTree = "<group>"; };
+		46133EC42B29F73300F2398C /* NSSMusicManagerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSSMusicManagerDelegate.swift; sourceTree = "<group>"; };
+		46133EC62B2A061D00F2398C /* NSSMap+CLLocationManagerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSSMap+CLLocationManagerDelegate.swift"; sourceTree = "<group>"; };
+		46133EC82B2A065F00F2398C /* NSSModel+NSSStorageManagerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSSModel+NSSStorageManagerDelegate.swift"; sourceTree = "<group>"; };
+		46133ECA2B2A069E00F2398C /* NSSModel+NSSMapManagerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSSModel+NSSMapManagerDelegate.swift"; sourceTree = "<group>"; };
+		46133ECC2B2A06BD00F2398C /* NSSModel+NSSMusicManagerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSSModel+NSSMusicManagerDelegate.swift"; sourceTree = "<group>"; };
+		46133ECE2B2A070300F2398C /* SharedNSSModelManagerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedNSSModelManagerDelegate.swift; sourceTree = "<group>"; };
+		46133ED12B2A20D700F2398C /* DebugNSSMusicManagerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugNSSMusicManagerDelegate.swift; sourceTree = "<group>"; };
+		46133ED32B2A210600F2398C /* DebugNSSMapManagerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugNSSMapManagerDelegate.swift; sourceTree = "<group>"; };
+		46133ED52B2A215800F2398C /* DebugNSSStorageManagerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugNSSStorageManagerDelegate.swift; sourceTree = "<group>"; };
+		46133ED92B2A4A8A00F2398C /* DebugNSSStationManagerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugNSSStationManagerDelegate.swift; sourceTree = "<group>"; };
+		46133EE02B2A533E00F2398C /* DefaultNSSModelManagerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultNSSModelManagerDelegate.swift; sourceTree = "<group>"; };
+		46133EE22B2A535A00F2398C /* DefaultNSSMapManagerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultNSSMapManagerDelegate.swift; sourceTree = "<group>"; };
+		46133EE42B2A537700F2398C /* DefaultNSSMusicManagerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultNSSMusicManagerDelegate.swift; sourceTree = "<group>"; };
+		46133EE62B2A538E00F2398C /* DefaultNSSStationManagerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultNSSStationManagerDelegate.swift; sourceTree = "<group>"; };
+		46133EE82B2A53A600F2398C /* DefaultNSSStorageManagerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultNSSStorageManagerDelegate.swift; sourceTree = "<group>"; };
+		46133EEA2B2A5C3000F2398C /* SharedNSSStationManagerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedNSSStationManagerDelegate.swift; sourceTree = "<group>"; };
+		46293D352B29A887004098AB /* Collections.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Collections.swift; sourceTree = "<group>"; };
+		467037E92B21433600C2B9EC /* Nearby Stations.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Nearby Stations.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		467037EC2B21433600C2B9EC /* NSSApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSSApp.swift; sourceTree = "<group>"; };
+		467037EE2B21433600C2B9EC /* NSSMainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSSMainView.swift; sourceTree = "<group>"; };
+		467037F02B21433700C2B9EC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		467037F32B21433700C2B9EC /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		467037FA2B21438A00C2B9EC /* Stations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stations.swift; sourceTree = "<group>"; };
+		467037FC2B2143C600C2B9EC /* NSSModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSSModel.swift; sourceTree = "<group>"; };
+		467038052B21442400C2B9EC /* NSSStation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSSStation.swift; sourceTree = "<group>"; };
+		4671D1AE2B284B7800236240 /* NSSStorageManagerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSSStorageManagerDelegate.swift; sourceTree = "<group>"; };
+		4671D1B12B284D3000236240 /* NSSMapManagerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSSMapManagerDelegate.swift; sourceTree = "<group>"; };
+		467EDA6B2B24870200F8C2CE /* SalientButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SalientButtonStyle.swift; sourceTree = "<group>"; };
+		4688682B2B28B9C100CA7AC2 /* NearbyStations.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = NearbyStations.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		469E554C2B25DD5600AE1DEC /* SImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SImage.swift; sourceTree = "<group>"; };
+		469E554E2B25DF7100AE1DEC /* SMView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SMView.swift; sourceTree = "<group>"; };
+		469E55502B25DFF900AE1DEC /* SMControls.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SMControls.swift; sourceTree = "<group>"; };
+		469E55522B25E0BE00AE1DEC /* SControls.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SControls.swift; sourceTree = "<group>"; };
+		469E55562B25F30200AE1DEC /* SControlsDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SControlsDetails.swift; sourceTree = "<group>"; };
+		469E55582B25F46700AE1DEC /* NSSStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSSStyle.swift; sourceTree = "<group>"; };
+		469E555D2B264E8D00AE1DEC /* ToggleButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToggleButton.swift; sourceTree = "<group>"; };
+		469E555F2B264EAB00AE1DEC /* SalientCircleButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SalientCircleButtonStyle.swift; sourceTree = "<group>"; };
+		469E55612B265EDB00AE1DEC /* NSSModelManagerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSSModelManagerDelegate.swift; sourceTree = "<group>"; };
+		469E55632B266F8300AE1DEC /* NSSStationManagerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSSStationManagerDelegate.swift; sourceTree = "<group>"; };
+		469E55662B268EC800AE1DEC /* SProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SProfile.swift; sourceTree = "<group>"; };
+		469E55682B2698A100AE1DEC /* NSSStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSSStorage.swift; sourceTree = "<group>"; };
+		469E556E2B26A02100AE1DEC /* NSSMap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSSMap.swift; sourceTree = "<group>"; };
+		46B95FCD2B2B028E0012CE5E /* DebugNSSModelManagerDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DebugNSSModelManagerDelegate.swift; sourceTree = "<group>"; };
+		46B95FCF2B2B02B20012CE5E /* .gitignore */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
+		46CD7F9C2B275FC8003F2E92 /* NSSTips.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSSTips.swift; sourceTree = "<group>"; };
+		46CD7F9E2B2777E7003F2E92 /* StationSliderTargetBehavior.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StationSliderTargetBehavior.swift; sourceTree = "<group>"; };
+		46CD7FA02B27B4DB003F2E92 /* SDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SDetails.swift; sourceTree = "<group>"; };
+		46CD7FA22B27B533003F2E92 /* IsVisible.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IsVisible.swift; sourceTree = "<group>"; };
+		46CD7FA62B27B6AC003F2E92 /* Blur.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Blur.swift; sourceTree = "<group>"; };
+		46CF5D3B2B21FF660068023E /* SView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SView.swift; sourceTree = "<group>"; };
+		46CF5D3D2B21FFD10068023E /* NSSMusic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSSMusic.swift; sourceTree = "<group>"; };
+		46CF5D3F2B2209D30068023E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		46D070A22B24E6590092333E /* PreviewStations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewStations.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		467037E62B21433600C2B9EC /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4618D0862B2AED4400686344 /* Collections in Frameworks */,
+				4618D0882B2AED4400686344 /* DequeModule in Frameworks */,
+				4618D08A2B2AED4400686344 /* OrderedCollections in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		46133ED02B2A09C700F2398C /* NSSModel */ = {
+			isa = PBXGroup;
+			children = (
+				467037FC2B2143C600C2B9EC /* NSSModel.swift */,
+				46133ECA2B2A069E00F2398C /* NSSModel+NSSMapManagerDelegate.swift */,
+				46133ECC2B2A06BD00F2398C /* NSSModel+NSSMusicManagerDelegate.swift */,
+				46133EC82B2A065F00F2398C /* NSSModel+NSSStorageManagerDelegate.swift */,
+			);
+			path = NSSModel;
+			sourceTree = "<group>";
+		};
+		46133ED72B2A46EA00F2398C /* NSSMap */ = {
+			isa = PBXGroup;
+			children = (
+				469E556E2B26A02100AE1DEC /* NSSMap.swift */,
+				46133EC62B2A061D00F2398C /* NSSMap+CLLocationManagerDelegate.swift */,
+			);
+			path = NSSMap;
+			sourceTree = "<group>";
+		};
+		46133ED82B2A49E800F2398C /* Debug */ = {
+			isa = PBXGroup;
+			children = (
+				46133ED32B2A210600F2398C /* DebugNSSMapManagerDelegate.swift */,
+				46B95FCD2B2B028E0012CE5E /* DebugNSSModelManagerDelegate.swift */,
+				46133ED12B2A20D700F2398C /* DebugNSSMusicManagerDelegate.swift */,
+				46133ED92B2A4A8A00F2398C /* DebugNSSStationManagerDelegate.swift */,
+				46133ED52B2A215800F2398C /* DebugNSSStorageManagerDelegate.swift */,
+			);
+			path = Debug;
+			sourceTree = "<group>";
+		};
+		46133EDD2B2A526A00F2398C /* Shared */ = {
+			isa = PBXGroup;
+			children = (
+				46133ECE2B2A070300F2398C /* SharedNSSModelManagerDelegate.swift */,
+				46133EEA2B2A5C3000F2398C /* SharedNSSStationManagerDelegate.swift */,
+			);
+			path = Shared;
+			sourceTree = "<group>";
+		};
+		46133EDE2B2A527400F2398C /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				4671D1B12B284D3000236240 /* NSSMapManagerDelegate.swift */,
+				469E55612B265EDB00AE1DEC /* NSSModelManagerDelegate.swift */,
+				46133EC42B29F73300F2398C /* NSSMusicManagerDelegate.swift */,
+				469E55632B266F8300AE1DEC /* NSSStationManagerDelegate.swift */,
+				4671D1AE2B284B7800236240 /* NSSStorageManagerDelegate.swift */,
+			);
+			path = Protocols;
+			sourceTree = "<group>";
+		};
+		46133EDF2B2A532500F2398C /* Default */ = {
+			isa = PBXGroup;
+			children = (
+				46133EE22B2A535A00F2398C /* DefaultNSSMapManagerDelegate.swift */,
+				46133EE02B2A533E00F2398C /* DefaultNSSModelManagerDelegate.swift */,
+				46133EE42B2A537700F2398C /* DefaultNSSMusicManagerDelegate.swift */,
+				46133EE62B2A538E00F2398C /* DefaultNSSStationManagerDelegate.swift */,
+				46133EE82B2A53A600F2398C /* DefaultNSSStorageManagerDelegate.swift */,
+			);
+			path = Default;
+			sourceTree = "<group>";
+		};
+		46293D342B29A874004098AB /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				46293D352B29A887004098AB /* Collections.swift */,
+				46133EC22B29CE3200F2398C /* OSLog.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		467037E02B21433600C2B9EC = {
+			isa = PBXGroup;
+			children = (
+				46B95FCF2B2B02B20012CE5E /* .gitignore */,
+				4688682B2B28B9C100CA7AC2 /* NearbyStations.playground */,
+				467037EB2B21433600C2B9EC /* Nearby Stations */,
+				467037EA2B21433600C2B9EC /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		467037EA2B21433600C2B9EC /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				467037E92B21433600C2B9EC /* Nearby Stations.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		467037EB2B21433600C2B9EC /* Nearby Stations */ = {
+			isa = PBXGroup;
+			children = (
+				467037EC2B21433600C2B9EC /* NSSApp.swift */,
+				46CF5D3F2B2209D30068023E /* Info.plist */,
+				467037F02B21433700C2B9EC /* Assets.xcassets */,
+				46D070A12B24E1D20092333E /* Views */,
+				46D070A02B24E1C60092333E /* Model */,
+				467037F22B21433700C2B9EC /* Preview Content */,
+			);
+			path = "Nearby Stations";
+			sourceTree = "<group>";
+		};
+		467037F22B21433700C2B9EC /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				467037F32B21433700C2B9EC /* Preview Assets.xcassets */,
+				46D070A22B24E6590092333E /* PreviewStations.swift */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		4671D1B02B284BD400236240 /* Delegates */ = {
+			isa = PBXGroup;
+			children = (
+				46133EDE2B2A527400F2398C /* Protocols */,
+				46133EDF2B2A532500F2398C /* Default */,
+				46133ED82B2A49E800F2398C /* Debug */,
+				46133EDD2B2A526A00F2398C /* Shared */,
+			);
+			path = Delegates;
+			sourceTree = "<group>";
+		};
+		469E555A2B25F62D00AE1DEC /* Stations */ = {
+			isa = PBXGroup;
+			children = (
+				467037FA2B21438A00C2B9EC /* Stations.swift */,
+				46CF5D3B2B21FF660068023E /* SView.swift */,
+				469E55522B25E0BE00AE1DEC /* SControls.swift */,
+				469E55562B25F30200AE1DEC /* SControlsDetails.swift */,
+				469E554C2B25DD5600AE1DEC /* SImage.swift */,
+				46CD7F9E2B2777E7003F2E92 /* StationSliderTargetBehavior.swift */,
+				46CD7FA02B27B4DB003F2E92 /* SDetails.swift */,
+			);
+			path = Stations;
+			sourceTree = "<group>";
+		};
+		469E555B2B25F64F00AE1DEC /* Map */ = {
+			isa = PBXGroup;
+			children = (
+				469E554E2B25DF7100AE1DEC /* SMView.swift */,
+				469E55502B25DFF900AE1DEC /* SMControls.swift */,
+				4601DA4C2B289C4700A94AE5 /* SMAnnotation.swift */,
+				4601DA502B28A70200A94AE5 /* SMStation.swift */,
+			);
+			path = Map;
+			sourceTree = "<group>";
+		};
+		469E555C2B25F70800AE1DEC /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				46CD7FA42B27B5CB003F2E92 /* Modifiers */,
+				46CD7FA52B27B69C003F2E92 /* Transitions */,
+				469E555D2B264E8D00AE1DEC /* ToggleButton.swift */,
+				467EDA6B2B24870200F8C2CE /* SalientButtonStyle.swift */,
+				469E555F2B264EAB00AE1DEC /* SalientCircleButtonStyle.swift */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
+		469E55652B268EAC00AE1DEC /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				469E55662B268EC800AE1DEC /* SProfile.swift */,
+			);
+			path = Profile;
+			sourceTree = "<group>";
+		};
+		46CD7FA42B27B5CB003F2E92 /* Modifiers */ = {
+			isa = PBXGroup;
+			children = (
+				46CD7FA22B27B533003F2E92 /* IsVisible.swift */,
+			);
+			path = Modifiers;
+			sourceTree = "<group>";
+		};
+		46CD7FA52B27B69C003F2E92 /* Transitions */ = {
+			isa = PBXGroup;
+			children = (
+				46CD7FA62B27B6AC003F2E92 /* Blur.swift */,
+			);
+			path = Transitions;
+			sourceTree = "<group>";
+		};
+		46D070A02B24E1C60092333E /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				4671D1B02B284BD400236240 /* Delegates */,
+				46293D342B29A874004098AB /* Extensions */,
+				46133ED72B2A46EA00F2398C /* NSSMap */,
+				46133ED02B2A09C700F2398C /* NSSModel */,
+				46CF5D3D2B21FFD10068023E /* NSSMusic.swift */,
+				467038052B21442400C2B9EC /* NSSStation.swift */,
+				469E55682B2698A100AE1DEC /* NSSStorage.swift */,
+				469E55582B25F46700AE1DEC /* NSSStyle.swift */,
+				46CD7F9C2B275FC8003F2E92 /* NSSTips.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		46D070A12B24E1D20092333E /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				467037EE2B21433600C2B9EC /* NSSMainView.swift */,
+				469E555C2B25F70800AE1DEC /* Components */,
+				469E555B2B25F64F00AE1DEC /* Map */,
+				469E55652B268EAC00AE1DEC /* Profile */,
+				469E555A2B25F62D00AE1DEC /* Stations */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		467037E82B21433600C2B9EC /* Nearby Stations */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 467037F72B21433700C2B9EC /* Build configuration list for PBXNativeTarget "Nearby Stations" */;
+			buildPhases = (
+				467037E52B21433600C2B9EC /* Sources */,
+				467037E62B21433600C2B9EC /* Frameworks */,
+				467037E72B21433600C2B9EC /* Resources */,
+				46133EEE2B2AE97000F2398C /* ShellScript */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Nearby Stations";
+			packageProductDependencies = (
+				4618D0852B2AED4400686344 /* Collections */,
+				4618D0872B2AED4400686344 /* DequeModule */,
+				4618D0892B2AED4400686344 /* OrderedCollections */,
+			);
+			productName = StationSlider;
+			productReference = 467037E92B21433600C2B9EC /* Nearby Stations.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		467037E12B21433600C2B9EC /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1500;
+				LastUpgradeCheck = 1500;
+				TargetAttributes = {
+					467037E82B21433600C2B9EC = {
+						CreatedOnToolsVersion = 15.0.1;
+					};
+				};
+			};
+			buildConfigurationList = 467037E42B21433600C2B9EC /* Build configuration list for PBXProject "Nearby Stations" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 467037E02B21433600C2B9EC;
+			packageReferences = (
+				4618D0842B2AED4400686344 /* XCRemoteSwiftPackageReference "swift-collections" */,
+			);
+			productRefGroup = 467037EA2B21433600C2B9EC /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				467037E82B21433600C2B9EC /* Nearby Stations */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		467037E72B21433600C2B9EC /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				467037F42B21433700C2B9EC /* Preview Assets.xcassets in Resources */,
+				46B95FD02B2B02B20012CE5E /* .gitignore in Resources */,
+				467037F12B21433700C2B9EC /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		46133EEE2B2AE97000F2398C /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 12;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if [[ -e /opt/homebrew/bin/swiftlint ]]; then\n    /opt/homebrew/bin/swiftlint --fix --format && /opt/homebrew/bin/swiftlint\nelse\n    echo \"warning:SwiftLint has not been found on your computer. You should install it with Homebrew (https://brew.sh/)\"\nfi\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		467037E52B21433600C2B9EC /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				469E55512B25DFF900AE1DEC /* SMControls.swift in Sources */,
+				46133ED62B2A215800F2398C /* DebugNSSStorageManagerDelegate.swift in Sources */,
+				4671D1AF2B284B7800236240 /* NSSStorageManagerDelegate.swift in Sources */,
+				46133EE32B2A535A00F2398C /* DefaultNSSMapManagerDelegate.swift in Sources */,
+				467037EF2B21433600C2B9EC /* NSSMainView.swift in Sources */,
+				469E554D2B25DD5600AE1DEC /* SImage.swift in Sources */,
+				469E55622B265EDB00AE1DEC /* NSSModelManagerDelegate.swift in Sources */,
+				46B95FCE2B2B028E0012CE5E /* DebugNSSModelManagerDelegate.swift in Sources */,
+				46CF5D3C2B21FF660068023E /* SView.swift in Sources */,
+				4601DA4D2B289C4700A94AE5 /* SMAnnotation.swift in Sources */,
+				46D070A32B24E6590092333E /* PreviewStations.swift in Sources */,
+				46133ECF2B2A070300F2398C /* SharedNSSModelManagerDelegate.swift in Sources */,
+				46CD7FA72B27B6AC003F2E92 /* Blur.swift in Sources */,
+				46133EEB2B2A5C3000F2398C /* SharedNSSStationManagerDelegate.swift in Sources */,
+				46133EE52B2A537700F2398C /* DefaultNSSMusicManagerDelegate.swift in Sources */,
+				467038062B21442400C2B9EC /* NSSStation.swift in Sources */,
+				469E55592B25F46700AE1DEC /* NSSStyle.swift in Sources */,
+				467EDA6C2B24870200F8C2CE /* SalientButtonStyle.swift in Sources */,
+				469E55672B268EC800AE1DEC /* SProfile.swift in Sources */,
+				46133EE72B2A538E00F2398C /* DefaultNSSStationManagerDelegate.swift in Sources */,
+				46133EC52B29F73300F2398C /* NSSMusicManagerDelegate.swift in Sources */,
+				46133EDA2B2A4A8A00F2398C /* DebugNSSStationManagerDelegate.swift in Sources */,
+				46133EC92B2A065F00F2398C /* NSSModel+NSSStorageManagerDelegate.swift in Sources */,
+				469E554F2B25DF7100AE1DEC /* SMView.swift in Sources */,
+				46133EE92B2A53A600F2398C /* DefaultNSSStorageManagerDelegate.swift in Sources */,
+				46133EC72B2A061D00F2398C /* NSSMap+CLLocationManagerDelegate.swift in Sources */,
+				4671D1B22B284D3000236240 /* NSSMapManagerDelegate.swift in Sources */,
+				46CD7FA32B27B533003F2E92 /* IsVisible.swift in Sources */,
+				469E55532B25E0BE00AE1DEC /* SControls.swift in Sources */,
+				469E55602B264EAB00AE1DEC /* SalientCircleButtonStyle.swift in Sources */,
+				469E556F2B26A02100AE1DEC /* NSSMap.swift in Sources */,
+				469E55692B2698A100AE1DEC /* NSSStorage.swift in Sources */,
+				467037ED2B21433600C2B9EC /* NSSApp.swift in Sources */,
+				46CD7F9F2B2777E8003F2E92 /* StationSliderTargetBehavior.swift in Sources */,
+				469E555E2B264E8D00AE1DEC /* ToggleButton.swift in Sources */,
+				469E55572B25F30200AE1DEC /* SControlsDetails.swift in Sources */,
+				46133ED22B2A20D700F2398C /* DebugNSSMusicManagerDelegate.swift in Sources */,
+				46CD7FA12B27B4DB003F2E92 /* SDetails.swift in Sources */,
+				4601DA512B28A70200A94AE5 /* SMStation.swift in Sources */,
+				46133EC32B29CE3200F2398C /* OSLog.swift in Sources */,
+				467037FB2B21438A00C2B9EC /* Stations.swift in Sources */,
+				469E55642B266F8300AE1DEC /* NSSStationManagerDelegate.swift in Sources */,
+				46133ECD2B2A06BD00F2398C /* NSSModel+NSSMusicManagerDelegate.swift in Sources */,
+				46293D362B29A887004098AB /* Collections.swift in Sources */,
+				46133EE12B2A533E00F2398C /* DefaultNSSModelManagerDelegate.swift in Sources */,
+				46133ECB2B2A069E00F2398C /* NSSModel+NSSMapManagerDelegate.swift in Sources */,
+				467037FD2B2143C600C2B9EC /* NSSModel.swift in Sources */,
+				46CD7F9D2B275FC8003F2E92 /* NSSTips.swift in Sources */,
+				46133ED42B2A210600F2398C /* DebugNSSMapManagerDelegate.swift in Sources */,
+				46CF5D3E2B21FFD10068023E /* NSSMusic.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		467037F52B21433700C2B9EC /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		467037F62B21433700C2B9EC /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		467037F82B21433700C2B9EC /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"Nearby Stations/Preview Content\"";
+				DEVELOPMENT_TEAM = NP94WB3P75;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Nearby Stations/Info.plist";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.music";
+				INFOPLIST_KEY_NSAppleMusicUsageDescription = "Nearby Stations is just a beta app to explore the usage of MusicKit & MapKit.";
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "Nearby Stations is just a beta app to explore the usage of MusicKit & MapKit.";
+				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "Nearby Stations is just a beta app to explore the usage of MusicKit & MapKit.";
+				INFOPLIST_KEY_NSLocationTemporaryUsageDescriptionDictionary = "";
+				INFOPLIST_KEY_NSLocationUsageDescription = "Nearby Stations is just a beta app to explore the usage of MusicKit & MapKit.";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Nearby Stations is just a beta app to explore the usage of MusicKit & MapKit.";
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 0.1;
+				PRODUCT_BUNDLE_IDENTIFIER = studio.aemi.ada23.trial.NearbyStationsDev;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Debug;
+		};
+		467037F92B21433700C2B9EC /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"Nearby Stations/Preview Content\"";
+				DEVELOPMENT_TEAM = NP94WB3P75;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Nearby Stations/Info.plist";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.music";
+				INFOPLIST_KEY_NSAppleMusicUsageDescription = "Nearby Stations is just a beta app to explore the usage of MusicKit & MapKit.";
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "Nearby Stations is just a beta app to explore the usage of MusicKit & MapKit.";
+				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "Nearby Stations is just a beta app to explore the usage of MusicKit & MapKit.";
+				INFOPLIST_KEY_NSLocationTemporaryUsageDescriptionDictionary = "";
+				INFOPLIST_KEY_NSLocationUsageDescription = "Nearby Stations is just a beta app to explore the usage of MusicKit & MapKit.";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Nearby Stations is just a beta app to explore the usage of MusicKit & MapKit.";
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 0.1;
+				PRODUCT_BUNDLE_IDENTIFIER = studio.aemi.ada23.trial.NearbyStationsDev;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		467037E42B21433600C2B9EC /* Build configuration list for PBXProject "Nearby Stations" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				467037F52B21433700C2B9EC /* Debug */,
+				467037F62B21433700C2B9EC /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		467037F72B21433700C2B9EC /* Build configuration list for PBXNativeTarget "Nearby Stations" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				467037F82B21433700C2B9EC /* Debug */,
+				467037F92B21433700C2B9EC /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		4618D0842B2AED4400686344 /* XCRemoteSwiftPackageReference "swift-collections" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/apple/swift-collections.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.5;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		4618D0852B2AED4400686344 /* Collections */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4618D0842B2AED4400686344 /* XCRemoteSwiftPackageReference "swift-collections" */;
+			productName = Collections;
+		};
+		4618D0872B2AED4400686344 /* DequeModule */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4618D0842B2AED4400686344 /* XCRemoteSwiftPackageReference "swift-collections" */;
+			productName = DequeModule;
+		};
+		4618D0892B2AED4400686344 /* OrderedCollections */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4618D0842B2AED4400686344 /* XCRemoteSwiftPackageReference "swift-collections" */;
+			productName = OrderedCollections;
+		};
+/* End XCSwiftPackageProductDependency section */
+	};
+	rootObject = 467037E12B21433600C2B9EC /* Project object */;
+}
