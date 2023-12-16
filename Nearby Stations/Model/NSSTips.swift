@@ -7,24 +7,28 @@
 
 import SwiftUI
 import TipKit
+import OSLog
 
+@Observable
 final class NSSTips {
 
     public static let shared: NSSTips = .init()
 
-    static let broadcastingModeTip = BroadcastingTip.self
-    static let liveListeningModeTip = LiveListeningTip.self
-
-    init() {
-        DispatchQueue.main.async {
-            try? Tips.configure([
+    private init() {
+        Logger.tips.debug(" willInit - self: \(String(describing: self))")
+        do {
+            try Tips.configure([
                 .displayFrequency(.monthly),
                 .datastoreLocation(.applicationDefault)
             ])
+        } catch {
+            Logger.tips.error(" \(error.localizedDescription)")
         }
+        Logger.tips.debug(" didInit - self: \(String(describing: self))")
     }
 }
 
+// MARK: Broadcasting Tip Class & Extension
 struct BroadcastingTip: Tip {
     var title: Text {
         Text("Broadcast")
@@ -39,6 +43,11 @@ struct BroadcastingTip: Tip {
     }
 }
 
+extension NSSTips {
+    static let broadcastingModeTip = BroadcastingTip.self
+}
+
+// MARK: Live Listening Tip Class & Extension
 struct LiveListeningTip: Tip {
     var title: Text {
         Text("Live Listening")
@@ -51,4 +60,8 @@ struct LiveListeningTip: Tip {
     var image: Image? {
         Image(systemName: "livephoto.play")
     }
+}
+
+extension NSSTips {
+    static let liveListeningModeTip = LiveListeningTip.self
 }

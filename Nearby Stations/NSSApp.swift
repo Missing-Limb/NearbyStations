@@ -11,17 +11,19 @@ import MapKit
 @main
 struct NSSApp: App {
 
-    @State
-    private var model: NSSModel = .init(delegate: .shared)
-
-    @State
-    private var forceSubscriptionView: Bool = true
+    @State private var model: NSSModel    = .shared
+    @State private var music: NSSMusic    = .shared
+    @State private var map: NSSMap      = .shared
+    @State private var style: NSSStyle    = .shared
 
     var body: some Scene {
         WindowGroup {
             NSSMainView()
-                .environmentObject(model)
-                .musicSubscriptionOffer(isPresented: self.$model.music.needsToSubscribe)
+                .environment(model)
+                .environment(music)
+                .environment(map)
+                .environment(style)
+                .musicSubscriptionOffer(isPresented: $music.needsToSubscribe)
         }
     }
 }

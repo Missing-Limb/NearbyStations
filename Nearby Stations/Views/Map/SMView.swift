@@ -6,24 +6,25 @@
 //
 
 import SwiftUI
-import MapKit
+import _MapKit_SwiftUI
+import OSLog
 
 struct SMView: View {
 
-    @EnvironmentObject
-    private var model: NSSModel
+    @State private var model: NSSModel    = .shared
+    @State private var map: NSSMap      = .shared
 
     var body: some View {
-        Map(position: self.$model.map.cameraPosition, interactionModes: [.pan, .zoom, .rotate]) {
-            ForEach(self.model.allStations) { station in
-                SMAnnotation(station, model)
+        Map(position: $map.cameraPosition, interactionModes: [.pan, .zoom, .rotate] ) {
+            ForEach(model.allClosestStations) { station in
+                SMAnnotation(station)
+                    .tag(station.id)
             }
         }
-        .mapFeatureSelectionDisabled { _ in false }
-        .mapFeatureSelectionContent { _ in }
+        .mapControls {}
         .mapStyle(.standard(pointsOfInterest: .excludingAll))
-        .onChange(of: self.model.map.cameraPosition.followsUserLocation) {
-            self.model.isFollowingUser = self.model.map.cameraPosition.followsUserLocation
+        .onChange(of: map.cameraPosition.followsUserLocation) {
+            NotificationCenter.default.post(name: .cameraUpdate, object: map.cameraPosition)
         }
     }
 }

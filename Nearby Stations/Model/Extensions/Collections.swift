@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import CoreLocation
 import Collections
 import OrderedCollections
 
@@ -25,6 +26,16 @@ extension Deque<NSSStation> {
     func open(differentFrom element: Self.Element) -> Self.Element? {
         self.first(where: { $0.open && $0 != element })
     }
+
+    func sorted(relativeTo location: CLLocation) -> Self {
+        .init(self.sorted(by: { (lhs, rhs) in
+            return if let lhd = lhs.distance(from: location), let rhd = rhs.distance(from: location) {
+                lhd < rhd
+            } else {
+                false
+            }
+        }))
+    }
 }
 
 extension Array<NSSStation> {
@@ -39,6 +50,16 @@ extension Array<NSSStation> {
     func open(differentFrom element: Self.Element) -> Self.Element? {
         self.first(where: { $0.open && $0 != element })
     }
+
+    func sorted(relativeTo location: CLLocation) -> Self {
+        self.sorted(by: { (lhs, rhs) in
+            return if let lhd = lhs.distance(from: location), let rhd = rhs.distance(from: location) {
+                lhd < rhd
+            } else {
+                false
+            }
+        })
+    }
 }
 
 extension Set<NSSStation> {
@@ -52,6 +73,16 @@ extension Set<NSSStation> {
 
     func open(differentFrom element: Self.Element) -> Self.Element? {
         self.first(where: { $0.open && $0 != element })
+    }
+
+    func sorted(relativeTo location: CLLocation) -> [Self.Element] {
+        self.sorted(by: { (lhs, rhs) in
+            return if let lhd = lhs.distance(from: location), let rhd = rhs.distance(from: location) {
+                lhd < rhd
+            } else {
+                false
+            }
+        })
     }
 }
 
@@ -80,5 +111,15 @@ extension OrderedSet<NSSStation> {
 
     func open(differentFrom element: Self.Element) -> Self.Element? {
         self.first(where: { $0.open && $0 != element })
+    }
+
+    func sorted(relativeTo location: CLLocation) -> Self {
+        .init(self.sorted(by: { (lhs, rhs) in
+            return if let lhd = lhs.distance(from: location), let rhd = rhs.distance(from: location) {
+                lhd < rhd
+            } else {
+                false
+            }
+        }))
     }
 }

@@ -9,6 +9,7 @@ import Foundation
 import OSLog
 
 protocol NSSMusicManagerDelegate: AnyObject {
+    func manager(_ music: NSSMusic, willInit `self`: NSSMusic)
     func manager(_ music: NSSMusic, didInit `self`: NSSMusic)
     func manager(_ music: NSSMusic, willSetDelegate newValue: NSSMusicManagerDelegate?)
     func manager(_ music: NSSMusic, didSetDelegate oldValue: NSSMusicManagerDelegate?)
@@ -19,6 +20,7 @@ protocol NSSMusicManagerDelegate: AnyObject {
 }
 
 extension NSSMusicManagerDelegate {
+    func manager(_ music: NSSMusic, willInit `self`: NSSMusic) {}
     func manager(_ music: NSSMusic, didInit `self`: NSSMusic) {}
     func manager(_ music: NSSMusic, willSetDelegate newValue: NSSMusicManagerDelegate?) {}
     func manager(_ music: NSSMusic, didSetDelegate oldValue: NSSMusicManagerDelegate?) {}

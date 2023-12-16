@@ -9,7 +9,7 @@ import SwiftUI
 
 struct SProfile: View {
 
-    @EnvironmentObject
+    @Environment(NSSModel.self)
     private var model: NSSModel
 
     @State

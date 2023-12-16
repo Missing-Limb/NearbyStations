@@ -15,9 +15,11 @@ extension NSSMusicManagerDelegate where Self == DebugNSSMusicManagerDelegate {
 }
 
 class DebugNSSMusicManagerDelegate: NSSMusicManagerDelegate {
+    func manager(_ music: NSSMusic, willInit `self`: NSSMusic) {
+        Logger.musicDelegate.debug("willInit - self: \(String(describing: `self`))")
+    }
     func manager(_ music: NSSMusic, didInit `self`: NSSMusic) {
-        Logger.music.debug("didInitNSSMusic")
-        Logger.musicDelegate.debug("didInit")
+        Logger.musicDelegate.debug("didInit - self: \(String(describing: `self`))")
     }
     func manager(_ music: NSSMusic, willSetDelegate newValue: NSSMusicManagerDelegate?) {
         Logger.musicDelegate.debug("willSetDelegate")

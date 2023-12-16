@@ -17,9 +17,11 @@ extension NSSStationManagerDelegate where Self == DebugNSSStationManagerDelegate
 }
 
 class DebugNSSStationManagerDelegate: NSSStationManagerDelegate {
+    func manager(_ station: NSSStation, willInit `self`: NSSStation) {
+        Logger.stationDelegate.debug("willInit - self: \(String(describing: `self`))")
+    }
     func manager(_ station: NSSStation, didInit `self`: NSSStation) {
-        Logger.station.debug("didInitNSSStation")
-        Logger.stationDelegate.debug("didInit")
+        Logger.stationDelegate.debug("didInit - self: \(String(describing: `self`))")
     }
     func manager(_ station: NSSStation, willSetName newValue: String) {
         Logger.stationDelegate.debug("willSetName")
@@ -56,6 +58,12 @@ class DebugNSSStationManagerDelegate: NSSStationManagerDelegate {
     }
     func manager(_ station: NSSStation, didSetOpen oldValue: Bool) {
         Logger.stationDelegate.debug("didSetOpen")
+    }
+    func manager(_ station: NSSStation, willSetArtwork newValue: Data?) {
+        Logger.stationDelegate.debug("willSetArtwork")
+    }
+    func manager(_ station: NSSStation, didSetArtwork oldValue: Data?) {
+        Logger.stationDelegate.debug("didSetArtwork")
     }
     func manager(_ station: NSSStation, didUpdateSong oldValue: Song?) {
         Logger.stationDelegate.debug("didUpdateSong")

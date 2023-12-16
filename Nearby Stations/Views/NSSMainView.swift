@@ -10,43 +10,28 @@ import OSLog
 
 struct NSSMainView: View {
 
-    @EnvironmentObject
+    @Environment(NSSModel.self)
     private var model: NSSModel
 
     var body: some View {
-
-        ZStack {
-
-            SMView()
-                .ignoresSafeArea(.all)
-                .safeAreaPadding(.bottom, 24)
-                .onTapGesture {
-                    Logger.view.debug("NSSMainView - body - onTapGesture - start")
-                    DispatchQueue.main.async {
-                        withAnimation {
-                            model.allStations.first(where: { $0 == model.focused && $0.open })?.open = false
-                            Logger.view.debug("NSSMainView - body - onTapGesture - end")
-                        }
-                    }
-                }
-
-            VStack(alignment: .center, spacing: 0) {
-                HStack(alignment: .top, spacing: 0) {
+        SMView()
+            .simultaneousGesture(
+                TapGesture()
+                    .onEnded(model.closePreviouslyFocusedStation)
+            )
+            .ignoresSafeArea(.all)
+            .safeAreaInset(edge: .top, alignment: .trailing) {
+                HStack(alignment: .top) {
                     SProfile()
                     Spacer()
                     SMControls()
                 }
-                .safeAreaPadding(.top, 24)
-                .padding(.horizontal, 32)
-                Spacer()
+                .safeAreaPadding(.horizontal, 32)
+                .safeAreaPadding(.top, 16)
             }
-
-            VStack(alignment: .center, spacing: 0) {
-                Spacer()
+            .safeAreaInset(edge: .bottom) {
                 Stations()
+                    .safeAreaPadding(.bottom)
             }
-            .padding(.bottom, 16)
-
-        }
     }
 }

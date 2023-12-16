@@ -9,6 +9,7 @@ import Foundation
 import OSLog
 
 protocol NSSStorageManagerDelegate: AnyObject {
+    func manager(_ storage: NSSStorage, willInit `self`: NSSStorage)
     func manager(_ storage: NSSStorage, didInit `self`: NSSStorage)
     func manager(_ storage: NSSStorage, willSetDelegate newValue: NSSStorageManagerDelegate?)
     func manager(_ storage: NSSStorage, didSetDelegate oldValue: NSSStorageManagerDelegate?)
@@ -17,6 +18,7 @@ protocol NSSStorageManagerDelegate: AnyObject {
 }
 
 extension NSSStorageManagerDelegate {
+    func manager(_ storage: NSSStorage, willInit `self`: NSSStorage) {}
     func manager(_ storage: NSSStorage, didInit `self`: NSSStorage) {}
     func manager(_ storage: NSSStorage, willSetDelegate newValue: NSSStorageManagerDelegate?) {}
     func manager(_ storage: NSSStorage, didSetDelegate oldValue: NSSStorageManagerDelegate?) {}

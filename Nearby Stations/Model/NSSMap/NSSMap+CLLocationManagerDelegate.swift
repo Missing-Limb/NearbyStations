@@ -10,12 +10,15 @@ import CoreLocation
 import OSLog
 
 extension NSSMap: CLLocationManagerDelegate {
+
     func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
         self.updateAuthorization()
-        Logger.map.debug("locationManagerDidChangeAuthorization(_)")
     }
+    func locationManagerDidPauseLocationUpdates(_ manager: CLLocationManager) {}
+    func locationManagerDidResumeLocationUpdates(_ manager: CLLocationManager) {}
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        self.updateLocation()
-        Logger.map.debug("locationManager(_,didUpdateLocations)")
+        self.location = manager.location
+        NotificationCenter.default.post(name: .locationUpdate, object: self)
     }
+
 }

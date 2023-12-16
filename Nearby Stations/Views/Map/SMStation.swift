@@ -6,23 +6,34 @@
 //
 
 import SwiftUI
+import OSLog
 
 struct SMStation: View {
 
-    @EnvironmentObject
-    private var station: NSSStation
+    private var isDefault: Bool {
+        Logger.view.debug("SMStation - isDefault - computed")
+        return station == .default
+    }
 
-    @EnvironmentObject
-    private var model: NSSModel
+    private var isFocused: Bool {
+        Logger.view.debug("SMStation - isFocused - computed")
+        return model.focused == station
+    }
 
-    @State
-    private var amount: CGFloat = 0.0
+    private var isListened: Bool {
+        Logger.view.debug("SMStation - isListened - computed")
+        return model.listened == station
+    }
 
-    private let animation: Animation = .easeInOut(duration: 2).repeatForever(autoreverses: false)
+    private var isRadiating: Bool {
+        Logger.view.debug("SMStation - isRadiating - computed")
+        return model.isPlaying && isListened &&
+            (!isDefault || isDefault && model.isBroadcasting)
+    }
 
     private var strokeColor: Color {
-        return if station == NSSStation.default,
-                  station == model.listened,
+        return if isDefault,
+                  isListened,
                   model.isPlaying,
                   !model.isLiveListening {
             .accent
@@ -31,57 +42,59 @@ struct SMStation: View {
         }
     }
 
+    private var animation: Animation = .easeInOut(duration: 2)
+
     private var annotationSize: CGFloat {
-        self.model.focused == self.station ? 48.0 : 32.0
+        isFocused ? 48.0 : 32.0
+    }
+
+    @State      private var amount: CGFloat = 0.0
+    @State      private var model: NSSModel = .shared
+    @Bindable   private var station: NSSStation
+
+    init(_ station: NSSStation) {
+        self.station = station
     }
 
     var body: some View {
-        ZStack(alignment: .center) {
-
-            if self.model.isPlaying
-                && self.station == self.model.listened
-                && (
-                    self.station != NSSStation.default
-                        || self.station == NSSStation.default && self.model.isBroadcasting
-                ) {
-
-                Circle()
-                    .foregroundStyle(.clear)
-                    .frame(width: 200, height: 200)
-
-                Circle()
-                    .foregroundStyle(.accent)
-                    .frame(width: 200, height: 200)
-                    .opacity(1 - amount)
-                    .scaleEffect(amount)
-                    .blur(radius: 10 * amount)
-                    .onAppear {
-                        DispatchQueue.main.async {
-                            withAnimation(self.animation) {
-                                self.amount = 1
-                            }
-                        }
-                    }
-                    .zIndex(0)
+        Button {
+            DispatchQueue.main.async {
+                withAnimation {
+                    model.focused = station
+                }
             }
-
-            SImage(self.station, size: self.annotationSize)
+        } label: {
+            SImage(station, size: annotationSize)
                 .clipShape(Circle())
                 .overlay {
                     Circle()
-                        .stroke( self.strokeColor, lineWidth: 3 )
+                        .stroke(strokeColor, lineWidth: 3 )
                         .foregroundStyle(.clear)
                 }
                 .shadow(color: Color(white: 0, opacity: 0.2), radius: 10, y: 2)
-                .onTapGesture {
-                    DispatchQueue.main.async {
-                        withAnimation {
-                            self.model.focused = self.station
+        }
+        .buttonStyle(BlankButton())
+        .frame(width: 200, height: 200)
+        .background {
+            Circle()
+                .foregroundStyle(.accent)
+                .opacity(1 - amount)
+                .scaleEffect(amount)
+                .blur(radius: 10 * amount)
+                .zIndex(0)
+                .onAppear {
+                    Logger.view.debug("SMStation - Button:background(Circle)")
+                    DispatchQueue.global(qos: .userInteractive).async {
+                        withAnimation( isRadiating
+                                        ? animation.repeatForever(autoreverses: true)
+                                        : animation
+                        ) {
+                            self.amount = 1
+                        } completion: {
+                            Logger.view.debug("Listening Wave Animation - Animation finished")
                         }
                     }
                 }
-                .zIndex(1)
         }
-
     }
 }

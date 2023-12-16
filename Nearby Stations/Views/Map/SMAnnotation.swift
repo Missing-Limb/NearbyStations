@@ -10,28 +10,23 @@ import MapKit
 
 struct SMAnnotation: MapContent {
 
-    private let station: NSSStation
-    private let model: NSSModel
+    @Bindable
+    private var station: NSSStation
 
-    init(_ station: NSSStation, _ model: NSSModel) {
+    init(_ station: NSSStation) {
         self.station = station
-        self.model = model
     }
 
     var body: some MapContent {
         Group {
-            if station == NSSStation.default {
-                UserAnnotation { _ in
-                    SMStation()
-                        .environmentObject(station)
-                        .environmentObject(model)
+            if station == .default {
+                UserAnnotation {
+                    SMStation(station)
                 }
             } else
             if let location = station.location {
                 Annotation(coordinate: location.coordinate) {
-                    SMStation()
-                        .environmentObject(station)
-                        .environmentObject(model)
+                    SMStation(station)
                 } label: {
                     Label("\(station.name)", systemImage: "antenna.radiowaves.left.and.right")
                 }

@@ -11,84 +11,68 @@ import SwiftUI
 import OSLog
 
 @Observable
-final class NSSMap: NSObject, ObservableObject {
+final class NSSMap: NSObject {
 
-    public static let shared: NSSMap = .init(delegate: .default)
+    public static let shared: NSSMap = .init(delegate: .debug)
 
-    public var delegate: NSSMapManagerDelegate? {
-        willSet {
-            self.delegate?.manager(self, willSetDelegate: newValue)
-        }
-        didSet {
-            self.delegate?.manager(self, didSetDelegate: oldValue)
-        }
+    public static var authorized: Bool {
+        NSSMap.shared.authorized
     }
+
+    public static var location: CLLocation? {
+        NSSMap.shared.location
+    }
+
+    public static var cameraPosition: MapCameraPosition {
+        NSSMap.shared.cameraPosition
+    }
+
+    private var manager: CLLocationManager?
 
     public private(set) var authorized: Bool = false {
-        willSet {
-            self.delegate?.manager(self, willSetAuthorized: newValue)
-        }
         didSet {
-            self.delegate?.manager(self, didSetAuthorized: oldValue)
+            NotificationCenter.default.post(name: .accessUpdate, object: nil)
         }
     }
 
-    public private(set) var location: CLLocation? {
-        willSet {
-            self.delegate?.manager(self, willSetLocation: newValue)
-        }
-        didSet {
-            self.delegate?.manager(self, didSetLocation: oldValue)
-        }
-    }
+    public var location: CLLocation?
 
-    public var manager: CLLocationManager? {
-        willSet {
-            self.delegate?.manager(self, willSetCLLManager: newValue)
-        }
-        didSet {
-            self.delegate?.manager(self, didSetCLLManager: oldValue)
-        }
-    }
+    public var cameraPosition: MapCameraPosition = .userLocation(followsHeading: true, fallback: .automatic)
 
-    public var cameraPosition: MapCameraPosition = .userLocation(fallback: .automatic) {
-        willSet {
-            self.delegate?.manager(self, willSetCameraPosition: newValue)
-        }
-        didSet {
-            self.delegate?.manager(self, didSetCameraPosition: oldValue)
-        }
-    }
-
-    init(delegate: NSSMapManagerDelegate? = nil) {
-        Logger.map.debug("willInitNSSMap")
-        self.delegate = delegate
-        self.manager = .init()
+    private init(delegate: NSSMapManagerDelegate?) {
         super.init()
-        self.manager?.delegate = self
-        self.delegate?.manager(self, didInit: self)
+        self.addObservers()
+        self.manager = .init()
+        self.manager!.delegate = self
+        self.location = self.manager!.location
+        self.requestAuthorization()
     }
 
-    func requestAuthorization() {
-        Logger.map.debug(".requestAlwaysAuthorization")
+    deinit {
+        self.removeObservers()
+    }
+
+    internal func updateAuthorization() {
+        self.authorized = [.authorizedWhenInUse, .authorizedAlways].contains(self.manager?.authorizationStatus)
+    }
+
+    private func requestAuthorization() {
         self.manager?.requestAlwaysAuthorization()
     }
 
-    func updateAuthorization() {
-        Logger.map.debug(".updateAuthorization")
-        self.authorized = [.authorizedWhenInUse, .authorizedAlways].contains(self.manager?.authorizationStatus)
-        Logger.map.debug(".updateAuthorization - authorized - set: \(self.authorized)")
-    }
+}
 
-    func startUpdatingLocation() {
-        Logger.map.debug(".startUpdatingLocation")
+extension NSSMap {
+
+    @objc private func startUpdating() {
         self.manager?.startUpdatingLocation()
     }
 
-    func updateLocation() {
-        Logger.map.debug(".updateLocation")
-        if let manager = self.manager, let location = manager.location {
-            self.location = location
-        }
+    private func addObservers() {
+        NotificationCenter.default.addObserver(self, selector: #selector(startUpdating), name: .accessGranted, object: nil)
+    }
+
+    private func removeObservers() {
+        NotificationCenter.default.removeObserver(self, name: .accessGranted, object: nil)
     }
 }

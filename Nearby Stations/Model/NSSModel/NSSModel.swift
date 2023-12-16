@@ -8,251 +8,143 @@
 import SwiftUI
 import CoreLocation
 import Collections
+import _MapKit_SwiftUI
 import OSLog
 
 @Observable
-class NSSModel: ObservableObject {
+final class NSSModel: NSObject {
 
-    public static let shared: NSSModel = .init(delegate: .default)
+    public static let shared: NSSModel = .init()
 
-    public var map: NSSMap     = .init(delegate: .default)
-    public var music: NSSMusic   = .init(delegate: .default)
-    public var storage: NSSStorage = .init(delegate: .default)
+    private let center: NotificationCenter = NotificationCenter.default
 
-    public var style: NSSStyle    = .init()
-    public var tips: NSSTips     = .init()
+    internal var areStationsInitializable: Bool = false
+    internal var areStationsInitialized: Bool = false
 
-    public var delegate: NSSModelManagerDelegate? {
-        willSet {
-            self.delegate?.manager(self, willSetDelegate: newValue)
-        }
-        didSet {
-            self.delegate?.manager(self, didSetDelegate: oldValue)
-        }
-    }
-
-    internal var isMusicAccessible: Bool = false {
-        willSet {
-            self.delegate?.manager(self, willSetMusicAccessStatus: newValue)
-        }
-        didSet {
-            self.delegate?.manager(self, didSetMusicAccessStatus: oldValue)
-        }
-    }
-
-    internal var isLocationAccessible: Bool = false {
-        willSet {
-            self.delegate?.manager(self, willSetLocationAccessStatus: newValue)
-        }
-        didSet {
-            self.delegate?.manager(self, didSetLocationAccessStatus: oldValue)
-        }
-    }
-
-    internal var areStationsInitialized: Bool = false {
-        willSet {
-            self.delegate?.manager(self, willSetStationsInitializationStatus: newValue)
-        }
-        didSet {
-            self.delegate?.manager(self, didSetStationsInitializationStatus: oldValue)
-        }
-    }
-
-    public var scrollViewProxy: ScrollViewProxy? {
-        willSet {
-            self.delegate?.manager(self, willSetScrollViewProxy: newValue)
-        }
-        didSet {
-            self.delegate?.manager(self, didSetScrollViewProxy: oldValue)
-        }
-    }
+    public var scrollViewProxy: ScrollViewProxy?
 
     public var isFollowingUser: Bool = true {
-        willSet {
-            self.delegate?.manager(self, willSetFollowingUserStatus: newValue)
-        }
         didSet {
-            self.delegate?.manager(self, didSetFollowingUserStatus: oldValue)
+            self.updateFollowingUserState()
         }
     }
 
     public var isBroadcasting: Bool = false {
-        willSet {
-            self.delegate?.manager(self, willSetBroadcastingStatus: newValue)
-        }
         didSet {
-            self.delegate?.manager(self, didSetBroadcastingStatus: oldValue)
+            self.updateBroadcastingState()
         }
     }
 
     public var isLiveListening: Bool = false {
-        willSet {
-            self.delegate?.manager(self, willSetLiveListeningStatus: newValue)
-        }
         didSet {
-            self.delegate?.manager(self, didSetLiveListeningStatus: oldValue)
+            self.updateLiveListeningState()
         }
     }
 
-    public var listened: NSSStation? = NSSStation.default {
-        willSet {
-            self.delegate?.manager(self, willSetListened: newValue)
-        }
+    public var location: CLLocation? {
         didSet {
-            self.delegate?.manager(self, willSetListened: oldValue)
+            self.center.post(name: .locationUpdated, object: nil)
         }
     }
+
+    public var focused: NSSStation? = NSSStation.default {
+        didSet {
+            self.center.post(name: .focusUpdate, object: nil)
+        }
+    }
+
+    public var focusedID: UUID? {
+        get {
+            self.focused?.id
+        }
+        set {
+            self.focused = self.allStations.first(where: { $0.id == newValue })
+            self.center.post(name: .focusUpdate, object: nil)
+        }
+    }
+
+    public var listened: NSSStation? = NSSStation.default
 
     public var listenedID: UUID? {
         get {
             return self.listened?.id
         }
         set {
-            self.listened = self.allStations.first(where: { $0.id == newValue })
+            self.listened = self.stations?.first(where: { $0.id == newValue }) ?? NSSStation.default
         }
     }
 
-    public var isPlaying: Bool = false {
-        willSet {
-            self.delegate?.manager(self, willSetPlayingStatus: newValue)
-        }
+    public var isPlaying: Bool = false
+
+    public var stations: Set<NSSStation>? {
         didSet {
-            self.delegate?.manager(self, didSetPlayingStatus: oldValue)
-        }
-    }
-
-    public var focused: NSSStation? = NSSStation.default {
-        willSet {
-            self.delegate?.manager(self, willSetFocused: newValue)
-        }
-        didSet {
-            self.delegate?.manager(self, didSetFocused: oldValue)
-        }
-    }
-
-    public var focusedID: UUID? {
-        get {
-            return self.focused?.id
-        }
-        set {
-            self.focused = self.allStations.first(where: { $0.id == newValue })
-        }
-    }
-
-    public var location: CLLocation? {
-        willSet {
-            self.delegate?.manager(self, willSetLocation: newValue)
-        }
-        didSet {
-            self.delegate?.manager(self, didSetLocation: oldValue)
-        }
-    }
-
-    public var stations: Set<NSSStation> = [] {
-        willSet {
-            self.delegate?.manager(self, willSetStations: newValue)
-        }
-        didSet {
-            self.delegate?.manager(self, didSetStations: oldValue)
-        }
-    }
-
-    public var allStations: OrderedSet<NSSStation> {
-        let stations = OrderedSet<NSSStation>(self.stations).union([NSSStation.default])
-        self.delegate?.manager(self, didComputeAllStations: stations)
-        return stations
-    }
-
-    public var sortedStations: Deque<NSSStation> = [] {
-        willSet {
-            self.delegate?.manager(self, willSetSortedStations: newValue)
-        }
-        didSet {
-            self.delegate?.manager(self, didSetSortedStations: oldValue)
-        }
-    }
-
-    init(delegate: NSSModelManagerDelegate? = nil) {
-        Logger.model.debug("willInitNSSModel")
-        self.delegate = delegate
-        self.delegate?.manager(self, didInit: self)
-    }
-
-    private func move(
-        to location: CLLocation,
-        latitudinalMeters: CLLocationDistance = 200,
-        longitudinalMeters: CLLocationDistance = 200
-    ) {
-        self.move(
-            to: location.coordinate,
-            latitudinalMeters: latitudinalMeters,
-            longitudinalMeters: longitudinalMeters
-        )
-    }
-
-    private func move(
-        to coordinate: CLLocationCoordinate2D,
-        latitudinalMeters: CLLocationDistance = 200,
-        longitudinalMeters: CLLocationDistance = 200
-    ) {
-        DispatchQueue.main.async {
-            withAnimation {
-                self.map.cameraPosition = .region(.init(
-                    center: coordinate,
-                    latitudinalMeters: latitudinalMeters,
-                    longitudinalMeters: longitudinalMeters
-                ))
+            if !self.areStationsInitialized {
+                self.center.post(name: .stationsInitialized, object: nil)
+                self.areStationsInitialized.toggle()
+            } else {
+                self.center.post(name: .stationsUpdated, object: nil)
             }
         }
     }
 
-    private func move(
-        to station: NSSStation?,
-        latitudinalMeters: CLLocationDistance = 200,
-        longitudinalMeters: CLLocationDistance = 200
-    ) {
-        guard station != nil || station != NSSStation.default else {
-            self.isFollowingUser = true
-            return
-        }
-        if let location = station!.location {
-            self.move(
-                to: location,
-                latitudinalMeters: latitudinalMeters,
-                longitudinalMeters: longitudinalMeters
-            )
-        }
+    public var allStations: Set<NSSStation> {
+        stations != nil ? stations!.union([.default]) : [.default]
     }
 
-    private func scroll(to id: UUID?) {
-        if let proxy = self.scrollViewProxy {
-            proxy.scrollTo(id, anchor: .center)
-        }
+    public var closestStations: Deque<NSSStation> = []
+
+    public var allClosestStations: Deque<NSSStation> {
+        var closestStations = self.closestStations
+        closestStations.prepend(.default)
+        return closestStations
     }
 
-    private func scroll(to station: NSSStation?) {
-        self.scroll(to: station?.id ?? NSSStation.default.id)
+    override private init() {
+        super.init()
+        self.addObservers()
     }
 
-    public func updateScrollPosition() {
-        self.scroll(to: self.focused)
+    deinit {
+        self.removeObservers()
     }
+}
 
-    public func updateMapCameraPosition() {
-        self.move(to: self.focused)
-    }
+// MARK: Notifications Observers
+extension NSSModel {
 
-    public func updateListenedStation() {
-        if let listened = self.listened,
-           !self.sortedStations.contains(listened),
-           self.isLiveListening {
-            self.listened = self.sortedStations.firstDifferent ?? NSSStation.default
+    @objc private func updateAccess() {
+        if NSSMusic.authorized && NSSMap.authorized {
+            self.areStationsInitializable = true
+            self.center.post(name: .accessGranted, object: nil)
         }
     }
 
-    public func updateStationsInformation() {
-        DispatchQueue.main.async {
-            for station in self.stations {
+    @objc private func initializeStations() {
+        #if DEBUG
+        self.stations = .init(PreviewStations.defaultStations)
+        #else
+        self.stations = .init()
+        #endif
+    }
+
+    @objc private func updateLocation() {
+        if let location = NSSMap.location {
+            self.location = location
+        }
+    }
+
+    @objc private func updateCamera() {
+        self.isFollowingUser = NSSMap.cameraPosition.followsUserLocation
+    }
+
+    @objc private func updateFocus() {
+        self.closePreviouslyFocusedStation()
+        self.moveCamera(to: .focused)
+    }
+
+    @objc private func updateStationsInformation() {
+        if let stations = self.stations {
+            for station in stations {
                 Task {
                     await station.updateSong()
                 }
@@ -260,33 +152,216 @@ class NSSModel: ObservableObject {
         }
     }
 
-    public func updateFocusedStation() {
-        if let focused = self.focused, !self.sortedStations.contains(focused) {
-            self.focused = NSSStation.default
-        }
+    @objc private func updateClosestStations() {
+        self.closestStations = self.getClosestStations(to: self.location)
     }
 
-    public func getClosestStations(
-        to location: CLLocation?
-    ) -> Deque<NSSStation> {
-        return if location != nil {
-            .init(self.stations.sorted(by: { (lhs, rhs) in
-                return if let lhd = lhs.distance(from: location), let rhd = rhs.distance(from: location) {
-                    lhd < rhd
-                } else {
-                    false
-                }
-            }))
-        } else {
-            .init(self.stations)
-        }
+    private func addObservers() {
+        self.center.addObserver(
+            self,
+            selector: #selector(updateAccess),
+            name: .accessUpdate, object: nil
+        )
+        self.center.addObserver(
+            self,
+            selector: #selector(initializeStations),
+            name: .accessGranted, object: nil
+        )
+        self.center.addObserver(
+            self,
+            selector: #selector(updateLocation),
+            name: .locationUpdate, object: nil
+        )
+        self.center.addObserver(
+            self,
+            selector: #selector(updateCamera),
+            name: .cameraUpdate, object: nil
+        )
+        self.center.addObserver(
+            self,
+            selector: #selector(updateFocus),
+            name: .focusUpdate, object: nil
+        )
+        self.center.addObserver(
+            self,
+            selector: #selector(updateStationsInformation),
+            name: .stationsInitialized, object: nil
+        )
+        self.center.addObserver(
+            self,
+            selector: #selector(updateClosestStations),
+            name: .stationsInitialized, object: nil
+        )
+        self.center.addObserver(
+            self,
+            selector: #selector(updateStationsInformation),
+            name: .stationsUpdated, object: nil
+        )
+        self.center.addObserver(
+            self,
+            selector: #selector(updateClosestStations),
+            name: .stationsUpdated, object: nil
+        )
+        self.center.addObserver(
+            self,
+            selector: #selector(updateClosestStations),
+            name: .locationUpdated, object: nil
+        )
     }
 
-    public func getAllClosestStations(
-        to location: CLLocation?
-    ) -> Deque<NSSStation> {
-        var stations: Deque<NSSStation> = self.getClosestStations(to: location)
-        stations.prepend(NSSStation.default)
+    private func removeObservers() {
+        self.center.removeObserver(self, name: .accessUpdate, object: nil)
+        self.center.removeObserver(self, name: .accessGranted, object: nil)
+        self.center.removeObserver(self, name: .locationUpdate, object: nil)
+        self.center.removeObserver(self, name: .cameraUpdate, object: nil)
+        self.center.removeObserver(self, name: .focusUpdate, object: nil)
+        self.center.removeObserver(self, name: .stationsInitialized, object: nil)
+        self.center.removeObserver(self, name: .stationsInitialized, object: nil)
+        self.center.removeObserver(self, name: .stationsUpdated, object: nil)
+        self.center.removeObserver(self, name: .stationsUpdated, object: nil)
+    }
+}
+
+// MARK: Stations Operations
+extension NSSModel {
+
+    private func getClosestStations(to location: CLLocation?) -> Deque<NSSStation> {
+        guard let stations = self.stations else {
+            return .init()
+        }
+
+        guard let location = location else {
+            return .init(stations)
+        }
+
+        return .init(stations.sorted(relativeTo: location))
+    }
+
+    private func getAllClosestStations(to location: CLLocation?) -> Deque<NSSStation> {
+        var stations = self.getClosestStations(to: location)
+        stations.prepend(.default)
         return stations
     }
+
+}
+
+// MARK: Update Stations State
+
+extension NSSModel {
+
+    private func updateFollowingUserState() {
+        if self.isFollowingUser {
+            self.moveCamera(to: .user)
+        } else {
+            if NSSMap.cameraPosition == .userLocation(followsHeading: true, fallback: .automatic) {
+                self.moveCamera(to: .user, followsHeading: false)
+            }
+        }
+    }
+
+}
+
+// MARK: Update Listened Station
+extension NSSModel {
+
+    /// Set the listened station user station based on the currently playing third-party station and copy the music from the latter into user station
+    /// - Parameter source: Third-Party station used to copy its song to user station
+    public func updateListenedStation(from source: NSSStation?) {
+        guard let source = source, source != NSSStation.default else {
+            Logger.model.info("No Source Station.")
+            return
+        }
+
+        NSSStation.default.musicID = source.musicID
+
+        self.updateListenedStation(to: .default, withFocus: true)
+    }
+
+    /// Set the listened station to the target station if the local list of stations contains the target station
+    /// - Parameters:
+    ///   - target: Target station to play
+    ///   - focus: Decide to set the focus on this station or not
+    public func updateListenedStation(to target: NSSStation?, withFocus focus: Bool = false) {
+        let target: NSSStation = target != nil
+            ? self.allStations.contains(target!)
+            ? target!
+            : self.closestStations.firstDifferent ?? .default
+            : .default
+        Task {
+            DispatchQueue.main.async {
+                withAnimation {
+                    if focus {
+                        self.focused = target
+                    }
+                    self.listened = target
+                } completion: {
+                    Task {
+                        await self.play(station: target)
+                    }
+                }
+            }
+            return
+        }
+    }
+
+    public func updateListenedStation(withFocus focus: Bool = false) {
+        let listened: NSSStation = self.listened != nil
+            ? self.allStations.contains(self.listened!)
+            ? self.listened!
+            : self.closestStations.firstDifferent ?? .default
+            : .default
+        DispatchQueue.main.async {
+            withAnimation {
+                if focus {
+                    self.focused = listened
+                }
+                self.listened = listened
+            } completion: {
+                Task {
+                    await self.play(station: listened)
+                }
+            }
+        }
+    }
+
+    private func updateBroadcastingState() {
+        if self.isBroadcasting {
+            self.isLiveListening = false
+            self.updateListenedStation(from: self.focused)
+        }
+    }
+
+    private func updateLiveListeningState() {
+        if self.isLiveListening {
+            self.isBroadcasting = false
+            self.updateListenedStation(to: self.closestStations.first, withFocus: true)
+        }
+    }
+
+}
+
+extension NSSModel {
+
+    public func closePreviouslyFocusedStation() {
+        if let focused = self.focused, let station = self.allStations.open(differentFrom: focused) {
+            withAnimation {
+                station.open = false
+            }
+        }
+    }
+}
+
+extension NSSModel {
+
+    public func updateFocusedStation() {
+        guard let focused = self.focused, let stations = self.stations else {
+            self.focused = .default
+            return
+        }
+
+        self.focused = stations.contains(focused)
+            ? focused
+            : .default
+    }
+
 }

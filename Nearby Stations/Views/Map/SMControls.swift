@@ -10,20 +10,24 @@ import TipKit
 
 struct SMControls: View {
 
-    @EnvironmentObject
-    private var model: NSSModel
+    @State
+    private var model: NSSModel = .shared
 
     var body: some View {
         VStack(spacing: 32) {
             VStack(spacing: 0) {
 
-                ToggleButton($model.isBroadcasting) {
+                ToggleButton($model.isBroadcasting, animated: true) {
                     Label("Broadcasting", systemImage: "antenna.radiowaves.left.and.right")
+                } completion: {
+                    print("Tapped")
                 }
                 .popoverTip(NSSTips.broadcastingModeTip.init(), arrowEdge: .trailing)
 
-                ToggleButton($model.isLiveListening) {
+                ToggleButton($model.isLiveListening, animated: true) {
                     Label("Live Listening", systemImage: "livephoto.play")
+                } completion: {
+                    print("Tapped")
                 }
                 .popoverTip(NSSTips.liveListeningModeTip.init(), arrowEdge: .trailing)
 
@@ -53,7 +57,7 @@ struct SMControls: View {
 
             VStack {
                 ToggleButton($model.isFollowingUser) {
-                    Label("Focus", systemImage: "scope")
+                    Label("Focus", systemImage: model.isFollowingUser ? "location.north.fill" : "location.north")
                 }
                 .background(.thickMaterial)
                 .clipShape(RoundedRectangle(cornerRadius: 12))

@@ -15,9 +15,11 @@ extension NSSStorageManagerDelegate where Self == DebugNSSStorageManagerDelegate
 }
 
 class DebugNSSStorageManagerDelegate: NSSStorageManagerDelegate {
+    func manager(_ storage: NSSStorage, willInit `self`: NSSStorage) {
+        Logger.storageDelegate.debug("willInit - self: \(String(describing: `self`))")
+    }
     func manager(_ storage: NSSStorage, didInit `self`: NSSStorage) {
-        Logger.storage.debug("didInitNSSStorage")
-        Logger.storageDelegate.debug("didInit")
+        Logger.storageDelegate.debug("didInit - self: \(String(describing: `self`))")
     }
     func manager(_ storage: NSSStorage, willSetDelegate newValue: NSSStorageManagerDelegate?) {
         Logger.storageDelegate.debug("willSetDelegate")
