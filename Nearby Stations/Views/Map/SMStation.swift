@@ -6,82 +6,85 @@
 //
 
 import SwiftUI
+import OSLog
 
 struct SMStation: View {
 
-    @EnvironmentObject
-    private var station: NSSStation
+    private var isDefault: Bool {
+        station == .default
+    }
 
-    @EnvironmentObject
-    private var model: NSSModel
+    private var isFocused: Bool {
+        model.focused == station
+    }
 
-    @State
-    private var amount: CGFloat = 0.0
+    private var isListened: Bool {
+        model.listened == station
+    }
 
-    private let animation: Animation = .easeInOut(duration: 2).repeatForever(autoreverses: false)
+    private var shouldBeHighlighted: Bool {
+        isListened && model.isPlaying
+    }
 
-    private var strokeColor: Color {
-        return if station == NSSStation.default,
-                  station == model.listened,
-                  model.isPlaying,
-                  !model.isLiveListening {
-            .accent
-        } else {
-            .white
-        }
+    private var isRadiating: Bool {
+        model.isPlaying && isListened && (!isDefault || isDefault && model.isBroadcasting)
+    }
+
+    private var animation: Animation {
+        isRadiating ? .easeInOut(duration: 2).repeatForever(autoreverses: false) : .easeInOut(duration: 2)
     }
 
     private var annotationSize: CGFloat {
-        self.model.focused == self.station ? 48.0 : 32.0
+        isFocused ? 64.0 : 32.0
+    }
+
+    @State      private var amount: CGFloat = 0.0
+    @State      private var model: NSSModel = .shared
+    @Bindable   private var station: NSSStation
+
+    init(_ station: NSSStation) {
+        self.station = station
     }
 
     var body: some View {
-        ZStack(alignment: .center) {
-
-            if self.model.isPlaying
-                && self.station == self.model.listened
-                && (
-                    self.station != NSSStation.default
-                        || self.station == NSSStation.default && self.model.isBroadcasting
-                ) {
-
-                Circle()
-                    .foregroundStyle(.clear)
-                    .frame(width: 200, height: 200)
-
-                Circle()
-                    .foregroundStyle(.accent)
-                    .frame(width: 200, height: 200)
-                    .opacity(1 - amount)
-                    .scaleEffect(amount)
-                    .blur(radius: 10 * amount)
-                    .onAppear {
-                        DispatchQueue.main.async {
-                            withAnimation(self.animation) {
-                                self.amount = 1
-                            }
-                        }
-                    }
-                    .zIndex(0)
-            }
-
-            SImage(self.station, size: self.annotationSize)
+        Button {
+            withAnimation { model.focused = station }
+        } label: {
+            SImage(station, size: annotationSize)
                 .clipShape(Circle())
-                .overlay {
-                    Circle()
-                        .stroke( self.strokeColor, lineWidth: 3 )
-                        .foregroundStyle(.clear)
-                }
-                .shadow(color: Color(white: 0, opacity: 0.2), radius: 10, y: 2)
-                .onTapGesture {
-                    DispatchQueue.main.async {
-                        withAnimation {
-                            self.model.focused = self.station
-                        }
+                .background {
+                    ZStack {
+                        Circle()
+                            .stroke(.white, lineWidth: 8)
+
+                        Circle()
+                            .stroke(Color(white: 0.1, opacity: 0.5), lineWidth: 0.5)
                     }
                 }
-                .zIndex(1)
+                .padding()
+                .background {
+                    if shouldBeHighlighted {
+                        Circle()
+                            .foregroundStyle(.tint)
+                    } else {
+                        Circle()
+                            .foregroundStyle(.clear)
+                    }
+                }
         }
-
+        .buttonStyle(BlankButton())
+        .frame(width: 300, height: 300)
+        .background {
+            Circle()
+                .foregroundStyle(.tint)
+                .opacity(isRadiating ? 1 - amount : 0)
+                .scaleEffect(amount)
+                .blur(radius: 10 * amount)
+                .zIndex(-10)
+                .onAppear {
+                    withAnimation(animation) { amount = 1.0 }
+                }
+        }
     }
+
 }

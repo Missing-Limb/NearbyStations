@@ -9,15 +9,18 @@ import SwiftUI
 
 struct SControlsDetails: View {
 
-    @EnvironmentObject
+    @Environment(NSSModel.self)
     private var model: NSSModel
 
-    @EnvironmentObject
+    @Environment(NSSStation.self)
     private var station: NSSStation
 
+    @Environment(NSSStyle.self)
+    private var style: NSSStyle
+
     var body: some View {
-        VStack(alignment: .leading, spacing: model.style.spacing) {
-            HStack(spacing: model.style.spacing) {
+        VStack(alignment: .leading, spacing: style.spacing) {
+            HStack(spacing: style.spacing) {
                 Button {
                     print("Open in Music")
                 } label: {
@@ -43,8 +46,4 @@ struct SControlsDetails: View {
             .font(.headline)
         }
     }
-}
-
-#Preview {
-    SControlsDetails()
 }

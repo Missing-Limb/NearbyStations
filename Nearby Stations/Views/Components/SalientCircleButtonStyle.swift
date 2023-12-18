@@ -23,7 +23,7 @@ struct SalientCircleButtonStyle: ButtonStyle {
                     Group {
                         if highlightIf {
                             Circle()
-                                .foregroundStyle(.accent)
+                                .foregroundStyle(.tint)
                         } else {
                             Circle()
                         }

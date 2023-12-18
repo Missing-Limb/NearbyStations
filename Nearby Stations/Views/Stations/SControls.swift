@@ -9,32 +9,35 @@ import SwiftUI
 
 struct SControls: View {
 
-    @EnvironmentObject
+    @Environment(NSSModel.self)
     private var model: NSSModel
 
-    @EnvironmentObject
+    @Environment(NSSStyle.self)
+    private var style: NSSStyle
+
+    @Environment(NSSStation.self)
     private var station: NSSStation
 
     var body: some View {
-        HStack(spacing: model.style.spacing) {
+        HStack(spacing: style.spacing) {
             Button {
-                DispatchQueue.main.async {
+                DispatchQueue.global(qos: .userInteractive).async {
                     withAnimation {
                         self.station.open.toggle()
                     }
                 }
             } label: {
-                HStack(spacing: model.style.spacing - 2) {
+                HStack(spacing: style.spacing - 2) {
 
                     SImage(station, size: 48.0)
                         .clipShape(RoundedRectangle(cornerRadius: 8))
 
                     VStack(alignment: .leading, spacing: 4) {
-                        Text(self.station.song?.title ?? "Loading...")
+                        Text(station.song?.title ?? "Loading...")
                             .lineLimit(1)
                             .font(.headline)
                             .fontWeight(.bold)
-                        Text(self.station.song?.artistName ?? "Loading...")
+                        Text(station.song?.artist ?? "Loading...")
                             .lineLimit(1)
                             .font(.subheadline)
                             .fontWeight(.semibold)
@@ -56,35 +59,19 @@ struct SControls: View {
                 Button {
                     DispatchQueue.main.async {
                         withAnimation {
-                            if self.model.isPlaying {
-                                if self.model.listened == self.model.focused {
-                                    self.model.isPlaying = false
-                                }
-                            } else {
-                                self.model.isPlaying = true
-                            }
-                            if self.model.isPlaying {
-                                self.model.listened = self.model.focused
-                                if model.focused != NSSStation.default {
-                                    model.isBroadcasting = false
-                                }
-                                if let first = self.model.sortedStations.firstDifferent,
-                                   self.model.focused != first {
-                                    model.isLiveListening = false
-                                }
-                            }
+                            model.updatePlayingStatus()
                         }
                     }
                 } label: {
                     Label(
-                        self.model.isPlaying && self.model.listened == self.station ? "Pause" : "Play",
-                        systemImage: self.model.isPlaying && self.model.listened == self.station
+                        model.isPlaying && model.listened == station ? "Pause" : "Play",
+                        systemImage: model.isPlaying && model.listened == station
                             ? "pause.fill"
                             : "play.fill"
                     )
                 }
                 .buttonStyle(
-                    SalientCircleButtonStyle(highlightIf: self.model.listened == self.station && self.model.isPlaying)
+                    SalientCircleButtonStyle(highlightIf: model.listened == station && model.isPlaying)
                 )
             }
             .padding(.trailing, -4)

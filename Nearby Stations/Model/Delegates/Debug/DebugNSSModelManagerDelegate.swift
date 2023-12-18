@@ -16,10 +16,14 @@ extension NSSModelManagerDelegate where Self == DebugNSSModelManagerDelegate {
     }
 }
 
-class DebugNSSModelManagerDelegate: NSSModelManagerDelegate {
+protocol DebugNSSModelManagerDelegateProtocol: NSSModelManagerDelegate {}
+
+extension DebugNSSModelManagerDelegateProtocol {
+    func manager(_ model: NSSModel, willInit `self`: NSSModel) {
+        Logger.modelDelegate.debug("willInit - \(String(describing: `self`))")
+    }
     func manager(_ model: NSSModel, didInit `self`: NSSModel) {
-        Logger.model.debug("didInitNSSModel")
-        Logger.modelDelegate.debug("didInit")
+        Logger.modelDelegate.debug("didInit - \(String(describing: `self`))")
     }
     func manager(_ model: NSSModel, willSetDelegate newValue: NSSModelManagerDelegate?) {
         Logger.modelDelegate.debug("willSetDelegate")
@@ -27,23 +31,29 @@ class DebugNSSModelManagerDelegate: NSSModelManagerDelegate {
     func manager(_ model: NSSModel, didSetDelegate oldValue: NSSModelManagerDelegate?) {
         Logger.modelDelegate.debug("didSetDelegate")
     }
-    func manager(_ model: NSSModel, willSetMusicAccessStatus newValue: Bool) {
-        Logger.modelDelegate.debug("willSetMusicAccessStatus")
+    func manager(_ model: NSSModel, willSetMusicAccess newValue: Bool) {
+        Logger.modelDelegate.debug("willSetMusicAccess")
     }
-    func manager(_ model: NSSModel, didSetMusicAccessStatus oldValue: Bool) {
-        Logger.modelDelegate.debug("didSetMusicAccessStatus")
+    func manager(_ model: NSSModel, didSetMusicAccess oldValue: Bool) {
+        Logger.modelDelegate.debug("didSetMusicAccess")
     }
-    func manager(_ model: NSSModel, willSetLocationAccessStatus newValue: Bool) {
-        Logger.modelDelegate.debug("willSetLocationAccessStatus")
+    func manager(_ model: NSSModel, willSetLocationAccess newValue: Bool) {
+        Logger.modelDelegate.debug("willSetLocationAccess")
     }
-    func manager(_ model: NSSModel, didSetLocationAccessStatus oldValue: Bool) {
-        Logger.modelDelegate.debug("didSetLocationAccessStatus")
+    func manager(_ model: NSSModel, didSetLocationAccess oldValue: Bool) {
+        Logger.modelDelegate.debug("didSetLocationAccess")
     }
-    func manager(_ model: NSSModel, willSetStationsInitializationStatus newValue: Bool) {
-        Logger.modelDelegate.debug("willSetStationsInitializationStatus")
+    func manager(_ model: NSSModel, willSetStationsInitializability newValue: Bool) {
+        Logger.modelDelegate.debug("willSetStationsInitializability")
     }
-    func manager(_ model: NSSModel, didSetStationsInitializationStatus oldValue: Bool) {
-        Logger.modelDelegate.debug("didSetStationsInitializationStatus")
+    func manager(_ model: NSSModel, didSetStationsInitializability oldValue: Bool) {
+        Logger.modelDelegate.debug("didSetStationsInitializability")
+    }
+    func manager(_ model: NSSModel, willSetStationsInitialization newValue: Bool) {
+        Logger.modelDelegate.debug("willSetStationsInitialization")
+    }
+    func manager(_ model: NSSModel, didSetStationsInitialization oldValue: Bool) {
+        Logger.modelDelegate.debug("didSetStationsInitialization")
     }
     func manager(_ model: NSSModel, willSetScrollViewProxy newValue: ScrollViewProxy?) {
         Logger.modelDelegate.debug("willSetScrollViewProxy")
@@ -87,10 +97,10 @@ class DebugNSSModelManagerDelegate: NSSModelManagerDelegate {
     func manager(_ model: NSSModel, didSetPlayingStatus oldValue: Bool) {
         Logger.modelDelegate.debug("didSetPlayingStatus")
     }
-    func manager(_ model: NSSModel, willSetStations newValue: Set<NSSStation>) {
+    func manager(_ model: NSSModel, willSetStations newValue: Set<NSSStation>?) {
         Logger.modelDelegate.debug("willSetStations")
     }
-    func manager(_ model: NSSModel, didSetStations oldValue: Set<NSSStation>) {
+    func manager(_ model: NSSModel, didSetStations oldValue: Set<NSSStation>?) {
         Logger.modelDelegate.debug("didSetStations")
     }
     func manager(_ model: NSSModel, didComputeAllStations oldValue: OrderedSet<NSSStation>) {
@@ -109,3 +119,5 @@ class DebugNSSModelManagerDelegate: NSSModelManagerDelegate {
         Logger.modelDelegate.debug("didSetLocation")
     }
 }
+
+class DebugNSSModelManagerDelegate: DebugNSSModelManagerDelegateProtocol {}

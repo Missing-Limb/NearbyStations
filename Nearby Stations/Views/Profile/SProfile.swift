@@ -9,7 +9,7 @@ import SwiftUI
 
 struct SProfile: View {
 
-    @EnvironmentObject
+    @Environment(NSSModel.self)
     private var model: NSSModel
 
     @State
@@ -36,25 +36,7 @@ struct SProfile: View {
             radius: 24,
             y: 4
         )
-        .sheet(isPresented: $isPresented) {
-            VStack {
-                HStack {
-                    Text(NSSStorage.shared.myStationName)
-                        .font(.title)
-                        .fontWeight(.bold)
-                        .fontDesign(.rounded)
-                }
-            }
-            .background(.clear)
-            .presentationDetents([.medium])
-            .presentationBackground {
-                Rectangle()
-                    .foregroundStyle(.regularMaterial)
-            }
-            .presentationDragIndicator(.visible)
-            .presentationBackgroundInteraction(.disabled)
-        }
-
+        .sheet(isPresented: $isPresented) { ProfileView() }
     }
 }
 

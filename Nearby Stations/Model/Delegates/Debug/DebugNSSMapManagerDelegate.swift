@@ -17,9 +17,11 @@ extension NSSMapManagerDelegate where Self == DebugNSSMapManagerDelegate {
 }
 
 class DebugNSSMapManagerDelegate: NSSMapManagerDelegate {
+    func manager(_ map: NSSMap, willInit `self`: NSSMap) {
+        Logger.mapDelegate.debug("willInit - self: \(String(describing: `self`))")
+    }
     func manager(_ map: NSSMap, didInit `self`: NSSMap) {
-        Logger.map.debug("didInitNSSMap")
-        Logger.mapDelegate.debug("didInit")
+        Logger.mapDelegate.debug("didInit - self: \(String(describing: `self`))")
     }
     func manager(_ map: NSSMap, willSetDelegate newValue: NSSMapManagerDelegate?) {
         Logger.mapDelegate.debug("willSetDelegate")

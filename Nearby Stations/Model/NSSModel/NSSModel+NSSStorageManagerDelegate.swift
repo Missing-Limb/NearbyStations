@@ -11,6 +11,6 @@ import OSLog
 extension NSSModel: NSSStorageManagerDelegate {
     func manager(_ storage: NSSStorage, didSetMyStationName oldValue: String?) {
         NSSStation.default.name = storage.myStationName
-        Logger.storageDelegate.debug("didSetMyStationName - NSSStation.default.name - set: \(storage.myStationName)")
+        Logger.storageDelegate.debug(" didSetMyStationName - NSSStation.default.name - set: \(storage.myStationName)")
     }
 }

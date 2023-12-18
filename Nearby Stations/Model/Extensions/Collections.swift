@@ -6,6 +6,8 @@
 //
 
 import Foundation
+import CoreLocation
+import CloudKit
 import Collections
 import OrderedCollections
 
@@ -25,6 +27,16 @@ extension Deque<NSSStation> {
     func open(differentFrom element: Self.Element) -> Self.Element? {
         self.first(where: { $0.open && $0 != element })
     }
+
+    func sorted(relativeTo location: CLLocation) -> Self {
+        .init(self.sorted(by: { (lhs, rhs) in
+            return if let lhd = lhs.distance(from: location), let rhd = rhs.distance(from: location) {
+                lhd < rhd
+            } else {
+                false
+            }
+        }))
+    }
 }
 
 extension Array<NSSStation> {
@@ -39,6 +51,16 @@ extension Array<NSSStation> {
     func open(differentFrom element: Self.Element) -> Self.Element? {
         self.first(where: { $0.open && $0 != element })
     }
+
+    func sorted(relativeTo location: CLLocation) -> Self {
+        self.sorted(by: { (lhs, rhs) in
+            return if let lhd = lhs.distance(from: location), let rhd = rhs.distance(from: location) {
+                lhd < rhd
+            } else {
+                false
+            }
+        })
+    }
 }
 
 extension Set<NSSStation> {
@@ -52,6 +74,36 @@ extension Set<NSSStation> {
 
     func open(differentFrom element: Self.Element) -> Self.Element? {
         self.first(where: { $0.open && $0 != element })
+    }
+
+    func sorted(relativeTo location: CLLocation) -> [Self.Element] {
+        self.sorted(by: { (lhs, rhs) in
+            return if let lhd = lhs.distance(from: location), let rhd = rhs.distance(from: location) {
+                lhd < rhd
+            } else {
+                false
+            }
+        })
+    }
+}
+
+extension Array<CKRecord> {
+    func sorted(relativeTo location: CLLocation) -> [Self.Element] {
+        self.sorted(by: { (lhs, rhs) in
+            let lhl = lhs.value(forKey: "location") as? CLLocation
+            let rhl = rhs.value(forKey: "location") as? CLLocation
+            return lhl?.distance(from: location) ?? 0 < rhl?.distance(from: location) ?? 0
+        })
+    }
+}
+
+extension Set<CKRecord> {
+    func sorted(relativeTo location: CLLocation) -> [Self.Element] {
+        self.sorted(by: { (lhs, rhs) in
+            let lhl = lhs.value(forKey: "location") as? CLLocation
+            let rhl = rhs.value(forKey: "location") as? CLLocation
+            return lhl?.distance(from: location) ?? 0 < rhl?.distance(from: location) ?? 0
+        })
     }
 }
 
@@ -80,5 +132,15 @@ extension OrderedSet<NSSStation> {
 
     func open(differentFrom element: Self.Element) -> Self.Element? {
         self.first(where: { $0.open && $0 != element })
+    }
+
+    func sorted(relativeTo location: CLLocation) -> Self {
+        .init(self.sorted(by: { (lhs, rhs) in
+            return if let lhd = lhs.distance(from: location), let rhd = rhs.distance(from: location) {
+                lhd < rhd
+            } else {
+                false
+            }
+        }))
     }
 }

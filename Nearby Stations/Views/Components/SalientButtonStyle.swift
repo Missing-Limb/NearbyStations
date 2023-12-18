@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import OSLog
 
 struct SalientButtonStyle: ButtonStyle {
 
@@ -37,6 +38,8 @@ struct SalientButtonStyle: ButtonStyle {
                         .onAppear {
                             withAnimation {
                                 radius = proxy.size.height / 6
+                            } completion: {
+                                Logger.view.debug("SalientButtonStyle - Animation finished")
                             }
                         }
                 }

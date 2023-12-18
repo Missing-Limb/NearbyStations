@@ -11,6 +11,7 @@ import MusicKit
 import OSLog
 
 protocol NSSStationManagerDelegate: AnyObject {
+    func manager(_ station: NSSStation, willInit `self`: NSSStation)
     func manager(_ station: NSSStation, didInit `self`: NSSStation)
     func manager(_ station: NSSStation, willSetName newValue: String)
     func manager(_ station: NSSStation, didSetName oldValue: String)
@@ -24,10 +25,13 @@ protocol NSSStationManagerDelegate: AnyObject {
     func manager(_ station: NSSStation, didSetListeners oldValue: Int)
     func manager(_ station: NSSStation, willSetOpen newValue: Bool)
     func manager(_ station: NSSStation, didSetOpen oldValue: Bool)
+    func manager(_ station: NSSStation, willSetArtwork newValue: Data?)
+    func manager(_ station: NSSStation, didSetArtwork oldValue: Data?)
     func manager(_ station: NSSStation, didUpdateSong oldValue: Song?)
 }
 
 extension NSSStationManagerDelegate {
+    func manager(_ station: NSSStation, willInit `self`: NSSStation) {}
     func manager(_ station: NSSStation, didInit `self`: NSSStation) {}
     func manager(_ station: NSSStation, willSetName newValue: String) {}
     func manager(_ station: NSSStation, didSetName oldValue: String) {}
@@ -41,5 +45,7 @@ extension NSSStationManagerDelegate {
     func manager(_ station: NSSStation, didSetListeners oldValue: Int) {}
     func manager(_ station: NSSStation, willSetOpen newValue: Bool) {}
     func manager(_ station: NSSStation, didSetOpen oldValue: Bool) {}
+    func manager(_ station: NSSStation, willSetArtwork newValue: Data?) {}
+    func manager(_ station: NSSStation, didSetArtwork oldValue: Data?) {}
     func manager(_ station: NSSStation, didUpdateSong oldValue: Song?) {}
 }

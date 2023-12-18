@@ -23,6 +23,15 @@ final class NSSStorage: NSObject, ObservableObject {
         }
     }
 
+    @AppStorage("myID")
+    public var myID: String = UUID().uuidString
+
+    @AppStorage("selectedAccent")
+    public var selectedAccent: String = "Apple Music"
+
+    @AppStorage("connectedServices")
+    public var connectedServices: Services.RawValue = "Apple Music"
+
     @AppStorage("myStationName")
     public var myStationName: String = "My Station" {
         willSet {
@@ -33,11 +42,13 @@ final class NSSStorage: NSObject, ObservableObject {
         }
     }
 
-    init(delegate: NSSStorageManagerDelegate? = nil) {
-        Logger.storage.debug("willInitNSSStorage")
-        self.delegate = delegate
+    private init(delegate: NSSStorageManagerDelegate?) {
         super.init()
+        Logger.storage.debug(" willInit - self: \(String(describing: self))")
+        delegate?.manager(self, willInit: self)
+        self.delegate = delegate
         self.delegate?.manager(self, didInit: self)
+        Logger.storage.debug(" didInit - self: \(String(describing: self))")
     }
 
 }

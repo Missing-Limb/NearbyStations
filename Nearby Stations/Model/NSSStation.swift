@@ -9,183 +9,127 @@ import SwiftUI
 import OSLog
 import MapKit
 import MusicKit
+import CloudKit
 
 @Observable
-final class NSSStation: Hashable, Equatable, Identifiable, ObservableObject {
-
-    static func == (lhs: NSSStation, rhs: NSSStation) -> Bool {
-        lhs.hashValue == rhs.hashValue
+final class NSSStation: NSObject, Identifiable {
+    public static func isEqual(lhs: NSSStation, rhs: NSSStation) -> Bool {
+        lhs.id == rhs.id
     }
 
-    private static let defaultID: UUID = UUID(uuid: (0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0))
+    private static let defaultID: UUID = UUID(uuidString: NSSStorage.shared.myID)!
+    public static let `default`: NSSStation = .init()
 
-    public static let `default`: NSSStation = .init(delegate: .shared)
-
-    public var delegate: NSSStationManagerDelegate?
+    public static var focused: NSSStation? {
+        NSSModel.shared.focused
+    }
+    public static var listened: NSSStation? {
+        NSSModel.shared.listened
+    }
 
     public let id: UUID
-    public var serviceID: String? = UUID().uuidString
-    public var deviceID: String? = UUID().uuidString
-    public var name: String {
-        willSet {
-            self.delegate?.manager(self, willSetName: newValue)
+    public let deviceID: String? = UIDevice.current.identifierForVendor?.uuidString
+    public var name: String
+    public var location: CLLocation?
+    public var listeners: Int = 0
+    public var open: Bool = false
+
+    public private(set) var song: NSSSong?
+
+    public var artwork: UIImage? {
+        self.song?.artwork
+    }
+    public var playbackDuration: TimeInterval? {
+        self.song?.playbackDuration
+    }
+    public var playbackTime: TimeInterval? {
+        get {
+            self.song?.playbackTime
         }
-        didSet {
-            self.delegate?.manager(self, didSetName: oldValue)
+        set {
+            self.song?.setPlaybackTime(to: newValue!)
         }
     }
     public var musicID: String? {
-        willSet {
-            self.delegate?.manager(self, willSetMusicID: newValue)
-        }
-        didSet {
-            self.delegate?.manager(self, didSetMusicID: oldValue)
-        }
-    }
-    public var song: Song? {
-        willSet {
-            self.delegate?.manager(self, willSetSong: newValue)
-        }
-        didSet {
-            self.delegate?.manager(self, didSetSong: oldValue)
-        }
-    }
-    public var location: CLLocation? {
-        willSet {
-            self.delegate?.manager(self, willSetLocation: newValue)
-        }
-        didSet {
-            self.delegate?.manager(self, didSetLocation: oldValue)
-        }
-    }
-    public var listeners: Int = 0 {
-        willSet {
-            self.delegate?.manager(self, willSetListeners: newValue)
-        }
-        didSet {
-            self.delegate?.manager(self, didSetListeners: oldValue)
-        }
-    }
-    public var open: Bool = false {
-        willSet {
-            self.delegate?.manager(self, willSetOpen: newValue)
-        }
-        didSet {
-            self.delegate?.manager(self, didSetOpen: oldValue)
-        }
+        self.song?.id
     }
 
-    public var artwork: Data?
-
-    init(
-        location: CLLocation? = nil,
-        delegate: NSSStationManagerDelegate? = nil
-    ) {
-        Logger.station.debug("willInitNSSStation")
+    init(location: CLLocation? = nil) {
         self.id = NSSStation.defaultID
         self.name = NSSStorage.shared.myStationName
+        self.song = NSSSong.now
+        super.init()
         self.location = location
-        self.delegate = delegate
-        DispatchQueue.main.async {
-            Task {
-                if let musicID = NSSMusic.getCurrentSongId() {
-                    self.musicID = musicID
-                    do {
-                        self.song = try await NSSMusic.getSongFrom(string: musicID)
-                    } catch {
-                        Logger.station.error("\(error.localizedDescription)")
-                    }
-                }
-                self.delegate?.manager(self, didInit: self)
-            }
-        }
+        self.addObservers()
     }
 
-    init(
-        name: String,
-        musicID: String,
-        location: CLLocation,
-        delegate: NSSStationManagerDelegate? = nil
-    ) {
-        Logger.station.debug("willInitStation")
-        self.id = UUID()
+    init(id: String? = nil, name: String, song: NSSSong, location: CLLocation) {
+        self.id = id != nil ? UUID(uuidString: id!)! : UUID()
         self.name = name
-        self.location = location
-        self.musicID = musicID
-        self.delegate = delegate
-        DispatchQueue.main.async {
-            Task {
-                do {
-                    self.song = try await NSSMusic.getSongFrom(string: musicID)
-                } catch {
-                    print(error.localizedDescription)
-                }
-                self.delegate?.manager(self, didInit: self)
-            }
-        }
-    }
-
-    convenience init(
-        name: String,
-        musicID: String,
-        location: CLLocationCoordinate2D,
-        delegate: NSSStationManagerDelegate? = nil
-    ) {
-        self.init(
-            name: name,
-            musicID: musicID,
-            location: CLLocation(latitude: location.latitude, longitude: location.longitude),
-            delegate: delegate
-        )
-    }
-
-    init(
-        name: String,
-        song: Song,
-        location: CLLocation,
-        delegate: NSSStationManagerDelegate? = .shared
-    ) {
-        Logger.station.debug("willInitStation")
-        self.id = UUID()
-        self.name = name
-        self.location = location
-        self.musicID = song.id.rawValue
         self.song = song
-        self.delegate = delegate
-        self.delegate?.manager(self, didInit: self)
+        super.init()
+        self.location = location
     }
 
-    convenience init(
-        name: String,
-        song: Song,
-        location: CLLocationCoordinate2D,
-        delegate: NSSStationManagerDelegate? = nil
-    ) {
-        self.init(
-            name: name,
-            song: song,
-            location: CLLocation(latitude: location.latitude, longitude: location.longitude),
-            delegate: delegate
+    init(from record: CKRecord) {
+
+        let id: UUID = UUID(uuidString: (record["identifier"] as! String))!
+        let name: String = (record["name"] as! String)
+        let playbackTime: TimeInterval? = (record["playbackTime"] as! TimeInterval)
+        let saveTime: TimeInterval? = (record["saveTime"] as! TimeInterval)
+        let song: NSSSong = .init(
+            from: (record["songIdentifier"] as! String),
+            at: playbackTime,
+            savedAt: saveTime
         )
+        let location: CLLocation = record["location"] as! CLLocation
+
+        // MARK: Real Initialization
+        self.id = id
+        self.name = name
+        self.song = song
+        self.location = location
     }
 
-    func hash(into hasher: inout Hasher) {
-        hasher.combine(self.id)
-        hasher.combine(self.serviceID)
-        hasher.combine(self.deviceID)
+    @discardableResult
+    public func updateSong() async -> Bool {
+        await Task { await self.song?.updateSong() }.value ?? false
     }
 
-    func updateSong() async {
-        if let musicID = self.musicID {
-            do {
-                self.song = try await NSSMusic.getSongFrom(string: musicID)
-            } catch {
-                print(error.localizedDescription)
+    @discardableResult
+    public func updateImage() async -> Bool {
+        await Task { await self.song?.updateImage() }.value ?? false
+    }
+
+    @discardableResult
+    public func updateInformations() async -> Bool {
+        await Task { await self.song?.update() }.value ?? false
+    }
+
+    @discardableResult
+    public func update() async -> Bool {
+        return await Task {
+            #if DEBUG
+            return self.song != nil ? await self.song!.update() : false
+            #else
+            if self == NSSStation.default {
+                return self.song != nil ? await self.song!.update() : false
+            } else {
+                self.song = await NSSCloud.getStationSongBy(id: self.id.uuidString)
+                return await self.song?.update() ?? false
             }
-        }
-        self.delegate?.manager(self, didUpdateSong: self.song)
+            #endif
+        }.value
     }
 
+    @discardableResult
+    public func changeSong(to song: NSSSong) async -> Bool {
+        self.song = song
+        return await Task { await self.update() }.value
+    }
+}
+
+extension NSSStation {
     func distance(from otherLocation: CLLocation? = nil) -> CLLocationDistance? {
         return if otherLocation != nil, let location = self.location {
             location.distance(from: otherLocation!)
@@ -193,7 +137,6 @@ final class NSSStation: Hashable, Equatable, Identifiable, ObservableObject {
             nil
         }
     }
-
     func distance(from otherStation: NSSStation) -> CLLocationDistance? {
         return if let other = otherStation.location {
             self.distance(from: other)
@@ -201,5 +144,28 @@ final class NSSStation: Hashable, Equatable, Identifiable, ObservableObject {
             nil
         }
     }
+}
 
+extension NSSStation {
+
+    @objc func updateLocation() {
+        self.location = NSSMap.location
+    }
+
+    private func addObservers() {
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(updateLocation),
+            name: .locationUpdate,
+            object: nil
+        )
+    }
+
+    private func removeObservers() {
+        NotificationCenter.default.removeObserver(
+            self,
+            name: .locationUpdate,
+            object: nil
+        )
+    }
 }

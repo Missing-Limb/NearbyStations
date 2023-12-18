@@ -9,15 +9,18 @@ import SwiftUI
 
 struct SDetails: View {
 
-    @EnvironmentObject
+    @Environment(NSSModel.self)
     private var model: NSSModel
 
-    @EnvironmentObject
+    @Environment(NSSStyle.self)
+    private var style: NSSStyle
+
+    @Environment(NSSStation.self)
     private var station: NSSStation
 
     var body: some View {
         VStack(alignment: .leading, spacing: 4) {
-            HStack(spacing: model.style.spacing) {
+            HStack(spacing: style.spacing) {
                 Text(station.name)
                 Spacer()
                 HStack(spacing: 0) {
