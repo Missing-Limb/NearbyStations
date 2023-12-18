@@ -15,16 +15,21 @@ final class NSSTips {
     public static let shared: NSSTips = .init()
 
     private init() {
-        Logger.tips.debug(" willInit - self: \(String(describing: self))")
         do {
+            #if DEBUG
             try Tips.configure([
-                .displayFrequency(.monthly),
+                .displayFrequency(.immediate),
                 .datastoreLocation(.applicationDefault)
             ])
+            #else
+            try Tips.configure([
+                .displayFrequency(.immediate),
+                .datastoreLocation(.applicationDefault)
+            ])
+            #endif
         } catch {
             Logger.tips.error(" \(error.localizedDescription)")
         }
-        Logger.tips.debug(" didInit - self: \(String(describing: self))")
     }
 }
 
@@ -41,6 +46,18 @@ struct BroadcastingTip: Tip {
     var image: Image? {
         Image(systemName: "dot.radiowaves.left.and.right")
     }
+
+    var rules: [Rule] = []
+
+    var actions: [Action] {
+        .init {
+            Text("Add")
+        }
+    }
+
+    var options: [TipOption] = [
+        Tip.MaxDisplayCount(1)
+    ]
 }
 
 extension NSSTips {
@@ -60,6 +77,10 @@ struct LiveListeningTip: Tip {
     var image: Image? {
         Image(systemName: "livephoto.play")
     }
+
+    var options: [TipOption] = [
+        Tip.MaxDisplayCount(1)
+    ]
 }
 
 extension NSSTips {

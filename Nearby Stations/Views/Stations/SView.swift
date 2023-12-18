@@ -54,7 +54,7 @@ struct SView: View {
             .overlay {
                 if model.isPlaying && station == .listened! {
                     RoundedRectangle(cornerRadius: 18)
-                        .stroke(.accent, lineWidth: 2)
+                        .stroke(.tint, lineWidth: 2)
                         .foregroundStyle(.clear)
                 }
             }

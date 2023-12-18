@@ -29,7 +29,7 @@ final class NSSMap: NSObject {
 
     private var manager: CLLocationManager?
 
-    public private(set) var authorized: Bool = false {
+    public internal(set) var authorized: Bool = false {
         didSet {
             NotificationCenter.default.post(name: .accessUpdate, object: nil)
         }
@@ -45,7 +45,6 @@ final class NSSMap: NSObject {
         self.manager = .init()
         self.manager!.delegate = self
         self.location = self.manager!.location
-        self.requestAuthorization()
     }
 
     deinit {
@@ -56,7 +55,7 @@ final class NSSMap: NSObject {
         self.authorized = [.authorizedWhenInUse, .authorizedAlways].contains(self.manager?.authorizationStatus)
     }
 
-    private func requestAuthorization() {
+    public func requestAuthorization() {
         self.manager?.requestAlwaysAuthorization()
     }
 
@@ -69,7 +68,11 @@ extension NSSMap {
     }
 
     private func addObservers() {
-        NotificationCenter.default.addObserver(self, selector: #selector(startUpdating), name: .accessGranted, object: nil)
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(startUpdating),
+            name: .accessGranted,
+            object: nil)
     }
 
     private func removeObservers() {

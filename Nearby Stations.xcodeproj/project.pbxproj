@@ -35,6 +35,13 @@
 		4663C9292B2CAFCA00EFC782 /* NSSModel+MapCameraPosition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4663C9282B2CAFCA00EFC782 /* NSSModel+MapCameraPosition.swift */; };
 		4663C92B2B2CB00200EFC782 /* NSSModel+ScrollViewPosition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4663C92A2B2CB00200EFC782 /* NSSModel+ScrollViewPosition.swift */; };
 		4663C92D2B2CB3C400EFC782 /* NSSModel+Music.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4663C92C2B2CB3C400EFC782 /* NSSModel+Music.swift */; };
+		4663C9312B2D2E0800EFC782 /* PermissionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4663C9302B2D2E0800EFC782 /* PermissionsView.swift */; };
+		4663C9332B2D431E00EFC782 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4663C9322B2D431E00EFC782 /* ProfileView.swift */; };
+		466818432B2DB77A00E40069 /* PermissionButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 466818422B2DB77A00E40069 /* PermissionButton.swift */; };
+		466818452B2DC5B100E40069 /* ServicesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 466818442B2DC5B100E40069 /* ServicesView.swift */; };
+		466818472B2DC5D700E40069 /* NavigationComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 466818462B2DC5D700E40069 /* NavigationComponent.swift */; };
+		4668184A2B2DD36000E40069 /* Services.swift in Sources */ = {isa = PBXBuildFile; fileRef = 466818492B2DD36000E40069 /* Services.swift */; };
+		4668184C2B2DF1AB00E40069 /* NSSColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4668184B2B2DF1AB00E40069 /* NSSColors.swift */; };
 		467037ED2B21433600C2B9EC /* NSSApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 467037EC2B21433600C2B9EC /* NSSApp.swift */; };
 		467037EF2B21433600C2B9EC /* NSSMainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 467037EE2B21433600C2B9EC /* NSSMainView.swift */; };
 		467037F12B21433700C2B9EC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 467037F02B21433700C2B9EC /* Assets.xcassets */; };
@@ -68,6 +75,8 @@
 		46CF5D3C2B21FF660068023E /* SView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46CF5D3B2B21FF660068023E /* SView.swift */; };
 		46CF5D3E2B21FFD10068023E /* NSSMusic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46CF5D3D2B21FFD10068023E /* NSSMusic.swift */; };
 		46D070A32B24E6590092333E /* PreviewStations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46D070A22B24E6590092333E /* PreviewStations.swift */; };
+		46DCC3D52B2F4FDC00187AB9 /* NSSCloud.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46DCC3D42B2F4FDC00187AB9 /* NSSCloud.swift */; };
+		46DCC3D72B2F882200187AB9 /* NSSSong.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46DCC3D62B2F882200187AB9 /* NSSSong.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -96,6 +105,13 @@
 		4663C9282B2CAFCA00EFC782 /* NSSModel+MapCameraPosition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSSModel+MapCameraPosition.swift"; sourceTree = "<group>"; };
 		4663C92A2B2CB00200EFC782 /* NSSModel+ScrollViewPosition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSSModel+ScrollViewPosition.swift"; sourceTree = "<group>"; };
 		4663C92C2B2CB3C400EFC782 /* NSSModel+Music.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSSModel+Music.swift"; sourceTree = "<group>"; };
+		4663C9302B2D2E0800EFC782 /* PermissionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PermissionsView.swift; sourceTree = "<group>"; };
+		4663C9322B2D431E00EFC782 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
+		466818422B2DB77A00E40069 /* PermissionButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PermissionButton.swift; sourceTree = "<group>"; };
+		466818442B2DC5B100E40069 /* ServicesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServicesView.swift; sourceTree = "<group>"; };
+		466818462B2DC5D700E40069 /* NavigationComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationComponent.swift; sourceTree = "<group>"; };
+		466818492B2DD36000E40069 /* Services.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Services.swift; sourceTree = "<group>"; };
+		4668184B2B2DF1AB00E40069 /* NSSColors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSSColors.swift; sourceTree = "<group>"; };
 		467037E92B21433600C2B9EC /* Nearby Stations.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Nearby Stations.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		467037EC2B21433600C2B9EC /* NSSApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSSApp.swift; sourceTree = "<group>"; };
 		467037EE2B21433600C2B9EC /* NSSMainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSSMainView.swift; sourceTree = "<group>"; };
@@ -132,6 +148,9 @@
 		46CF5D3D2B21FFD10068023E /* NSSMusic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSSMusic.swift; sourceTree = "<group>"; };
 		46CF5D3F2B2209D30068023E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		46D070A22B24E6590092333E /* PreviewStations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewStations.swift; sourceTree = "<group>"; };
+		46DCC3D42B2F4FDC00187AB9 /* NSSCloud.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSSCloud.swift; sourceTree = "<group>"; };
+		46DCC3D62B2F882200187AB9 /* NSSSong.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSSSong.swift; sourceTree = "<group>"; };
+		46DCC3D82B2FDC6400187AB9 /* Nearby Stations.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Nearby Stations.entitlements"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -224,6 +243,16 @@
 			path = Extensions;
 			sourceTree = "<group>";
 		};
+		466818482B2DC89800E40069 /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				4663C9322B2D431E00EFC782 /* ProfileView.swift */,
+				4663C9302B2D2E0800EFC782 /* PermissionsView.swift */,
+				466818442B2DC5B100E40069 /* ServicesView.swift */,
+			);
+			path = Profile;
+			sourceTree = "<group>";
+		};
 		467037E02B21433600C2B9EC = {
 			isa = PBXGroup;
 			children = (
@@ -245,6 +274,7 @@
 		467037EB2B21433600C2B9EC /* Nearby Stations */ = {
 			isa = PBXGroup;
 			children = (
+				46DCC3D82B2FDC6400187AB9 /* Nearby Stations.entitlements */,
 				467037EC2B21433600C2B9EC /* NSSApp.swift */,
 				46CF5D3F2B2209D30068023E /* Info.plist */,
 				467037F02B21433700C2B9EC /* Assets.xcassets */,
@@ -309,6 +339,8 @@
 				467EDA6B2B24870200F8C2CE /* SalientButtonStyle.swift */,
 				469E555F2B264EAB00AE1DEC /* SalientCircleButtonStyle.swift */,
 				4650D4F52B2B47A900DCBD0F /* BlankButton.swift */,
+				466818422B2DB77A00E40069 /* PermissionButton.swift */,
+				466818462B2DC5D700E40069 /* NavigationComponent.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -317,6 +349,7 @@
 			isa = PBXGroup;
 			children = (
 				469E55662B268EC800AE1DEC /* SProfile.swift */,
+				466818482B2DC89800E40069 /* Profile */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -341,6 +374,7 @@
 		46D070A02B24E1C60092333E /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				466818492B2DD36000E40069 /* Services.swift */,
 				4671D1B02B284BD400236240 /* Delegates */,
 				46293D342B29A874004098AB /* Extensions */,
 				46133ED72B2A46EA00F2398C /* NSSMap */,
@@ -351,6 +385,9 @@
 				469E55582B25F46700AE1DEC /* NSSStyle.swift */,
 				46CD7F9C2B275FC8003F2E92 /* NSSTips.swift */,
 				46070C772B2C88BC00AFB3A8 /* NSSFocus.swift */,
+				4668184B2B2DF1AB00E40069 /* NSSColors.swift */,
+				46DCC3D42B2F4FDC00187AB9 /* NSSCloud.swift */,
+				46DCC3D62B2F882200187AB9 /* NSSSong.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -470,8 +507,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				469E55512B25DFF900AE1DEC /* SMControls.swift in Sources */,
+				466818452B2DC5B100E40069 /* ServicesView.swift in Sources */,
 				46133ED62B2A215800F2398C /* DebugNSSStorageManagerDelegate.swift in Sources */,
+				466818432B2DB77A00E40069 /* PermissionButton.swift in Sources */,
 				4671D1AF2B284B7800236240 /* NSSStorageManagerDelegate.swift in Sources */,
+				4668184C2B2DF1AB00E40069 /* NSSColors.swift in Sources */,
 				46133EE32B2A535A00F2398C /* DefaultNSSMapManagerDelegate.swift in Sources */,
 				467037EF2B21433600C2B9EC /* NSSMainView.swift in Sources */,
 				4650D4F62B2B47A900DCBD0F /* BlankButton.swift in Sources */,
@@ -482,9 +522,12 @@
 				46CF5D3C2B21FF660068023E /* SView.swift in Sources */,
 				4601DA4D2B289C4700A94AE5 /* SMAnnotation.swift in Sources */,
 				46D070A32B24E6590092333E /* PreviewStations.swift in Sources */,
+				466818472B2DC5D700E40069 /* NavigationComponent.swift in Sources */,
 				46133ECF2B2A070300F2398C /* SharedNSSModelManagerDelegate.swift in Sources */,
 				46CD7FA72B27B6AC003F2E92 /* Blur.swift in Sources */,
 				46133EEB2B2A5C3000F2398C /* SharedNSSStationManagerDelegate.swift in Sources */,
+				4663C9332B2D431E00EFC782 /* ProfileView.swift in Sources */,
+				4663C9312B2D2E0800EFC782 /* PermissionsView.swift in Sources */,
 				4663C9292B2CAFCA00EFC782 /* NSSModel+MapCameraPosition.swift in Sources */,
 				46133EE52B2A537700F2398C /* DefaultNSSMusicManagerDelegate.swift in Sources */,
 				467038062B21442400C2B9EC /* NSSStation.swift in Sources */,
@@ -510,9 +553,12 @@
 				469E555E2B264E8D00AE1DEC /* ToggleButton.swift in Sources */,
 				469E55572B25F30200AE1DEC /* SControlsDetails.swift in Sources */,
 				46133ED22B2A20D700F2398C /* DebugNSSMusicManagerDelegate.swift in Sources */,
+				46DCC3D52B2F4FDC00187AB9 /* NSSCloud.swift in Sources */,
 				46CD7FA12B27B4DB003F2E92 /* SDetails.swift in Sources */,
 				4601DA512B28A70200A94AE5 /* SMStation.swift in Sources */,
 				464C65122B2B6CCF00A5BF61 /* ViewDidLoad.swift in Sources */,
+				46DCC3D72B2F882200187AB9 /* NSSSong.swift in Sources */,
+				4668184A2B2DD36000E40069 /* Services.swift in Sources */,
 				46133EC32B29CE3200F2398C /* OSLog.swift in Sources */,
 				467037FB2B21438A00C2B9EC /* Stations.swift in Sources */,
 				46070C762B2C703500AFB3A8 /* Notifications.swift in Sources */,
@@ -654,6 +700,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "Nearby Stations/Nearby Stations.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Nearby Stations/Preview Content\"";
@@ -694,6 +741,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "Nearby Stations/Nearby Stations.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Nearby Stations/Preview Content\"";

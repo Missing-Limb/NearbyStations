@@ -25,41 +25,41 @@ final class NSSModel: NSObject {
 
     public var isFollowingUser: Bool = true {
         didSet {
-            self.updateFollowingUserState()
+            updateFollowingUserState()
         }
     }
 
     public var isBroadcasting: Bool = false {
         didSet {
-            self.updateBroadcastingState()
+            updateBroadcastingState()
         }
     }
 
     public var isLiveListening: Bool = false {
         didSet {
-            self.updateLiveListeningState()
+            updateLiveListeningState()
         }
     }
 
     public var location: CLLocation? {
         didSet {
-            self.center.post(name: .locationUpdated, object: nil)
+            center.post(name: .locationUpdated, object: nil)
         }
     }
 
     public var focused: NSSStation? = NSSStation.default {
         didSet {
-            self.center.post(name: .focusUpdate, object: nil)
+            center.post(name: .focusUpdate, object: nil)
         }
     }
 
     public var focusedID: UUID? {
         get {
-            self.focused?.id
+            focused?.id
         }
         set {
-            self.focused = self.allStations.first(where: { $0.id == newValue })
-            self.center.post(name: .focusUpdate, object: nil)
+            focused = allStations.first(where: { $0.id == newValue })
+            center.post(name: .focusUpdate, object: nil)
         }
     }
 
@@ -70,7 +70,7 @@ final class NSSModel: NSObject {
             return self.listened?.id
         }
         set {
-            self.listened = self.stations?.first(where: { $0.id == newValue }) ?? NSSStation.default
+            self.listened = stations?.first(where: { $0.id == newValue }) ?? .default
         }
     }
 
@@ -78,11 +78,11 @@ final class NSSModel: NSObject {
 
     public var stations: Set<NSSStation>? {
         didSet {
-            if !self.areStationsInitialized {
-                self.center.post(name: .stationsInitialized, object: nil)
-                self.areStationsInitialized.toggle()
+            if !areStationsInitialized {
+                center.post(name: .stationsInitialized, object: nil)
+                areStationsInitialized.toggle()
             } else {
-                self.center.post(name: .stationsUpdated, object: nil)
+                center.post(name: .stationsUpdated, object: nil)
             }
         }
     }
@@ -94,18 +94,18 @@ final class NSSModel: NSObject {
     public var closestStations: Deque<NSSStation> = []
 
     public var allClosestStations: Deque<NSSStation> {
-        var closestStations = self.closestStations
+        var closestStations = closestStations
         closestStations.prepend(.default)
         return closestStations
     }
 
     override private init() {
         super.init()
-        self.addObservers()
+        addObservers()
     }
 
     deinit {
-        self.removeObservers()
+        removeObservers()
     }
 }
 
@@ -146,7 +146,7 @@ extension NSSModel {
         if let stations = self.stations {
             for station in stations {
                 Task {
-                    await station.updateSong()
+                    await station.update()
                 }
             }
         }
@@ -154,6 +154,10 @@ extension NSSModel {
 
     @objc private func updateClosestStations() {
         self.closestStations = self.getClosestStations(to: self.location)
+    }
+
+    @objc private func updateStations() {
+        self.stations = NSSCloud.shared.stations
     }
 
     private func addObservers() {
@@ -264,6 +268,19 @@ extension NSSModel {
 // MARK: Update Listened Station
 extension NSSModel {
 
+    public func updatePlayingStatus() {
+        if isPlaying {
+            if listened != focused {
+                updateListenedStation(to: focused, withFocus: true)
+            } else {
+                isPlaying = false
+            }
+        } else {
+            updateListenedStation(to: focused)
+            isPlaying = true
+        }
+    }
+
     /// Set the listened station user station based on the currently playing third-party station and copy the music from the latter into user station
     /// - Parameter source: Third-Party station used to copy its song to user station
     public func updateListenedStation(from source: NSSStation?) {
@@ -271,10 +288,16 @@ extension NSSModel {
             Logger.model.info("No Source Station.")
             return
         }
-
-        NSSStation.default.musicID = source.musicID
-
-        self.updateListenedStation(to: .default, withFocus: true)
+        Task {
+            if source.musicID != nil {
+                await NSSStation.default.changeSong(to: NSSSong(
+                    from: source.musicID!,
+                    at: source.playbackTime,
+                    savedAt: source.song?.saveTime ?? -1
+                ))
+                self.updateListenedStation(to: .default, withFocus: true)
+            }
+        }
     }
 
     /// Set the listened station to the target station if the local list of stations contains the target station
@@ -282,11 +305,18 @@ extension NSSModel {
     ///   - target: Target station to play
     ///   - focus: Decide to set the focus on this station or not
     public func updateListenedStation(to target: NSSStation?, withFocus focus: Bool = false) {
+        let closest = self.closestStations.firstDifferent
         let target: NSSStation = target != nil
             ? self.allStations.contains(target!)
             ? target!
-            : self.closestStations.firstDifferent ?? .default
+            : closest ?? .default
             : .default
+        if target != .default {
+            isBroadcasting = false
+        }
+        if target != closest {
+            isLiveListening = false
+        }
         Task {
             DispatchQueue.main.async {
                 withAnimation {
@@ -332,9 +362,9 @@ extension NSSModel {
     }
 
     private func updateLiveListeningState() {
-        if self.isLiveListening {
-            self.isBroadcasting = false
-            self.updateListenedStation(to: self.closestStations.first, withFocus: true)
+        if isLiveListening {
+            isBroadcasting = false
+            updateListenedStation(to: closestStations.first, withFocus: true)
         }
     }
 
@@ -343,7 +373,7 @@ extension NSSModel {
 extension NSSModel {
 
     public func closePreviouslyFocusedStation() {
-        if let focused = self.focused, let station = self.allStations.open(differentFrom: focused) {
+        if let focused = focused, let station = allStations.open(differentFrom: focused) {
             withAnimation {
                 station.open = false
             }
@@ -354,7 +384,7 @@ extension NSSModel {
 extension NSSModel {
 
     public func updateFocusedStation() {
-        guard let focused = self.focused, let stations = self.stations else {
+        guard let focused = focused, let stations = stations else {
             self.focused = .default
             return
         }

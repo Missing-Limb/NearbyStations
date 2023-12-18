@@ -9,7 +9,8 @@ import SwiftUI
 
 struct SImage: View {
 
-    @Bindable var station: NSSStation
+    @Bindable
+    var station: NSSStation
 
     let size: CGFloat
 
@@ -20,9 +21,8 @@ struct SImage: View {
 
     var body: some View {
         Group {
-            if let artwork = station.artwork,
-               let uiImage = UIImage(data: artwork) {
-                Image(uiImage: uiImage)
+            if let image = self.station.artwork {
+                Image(uiImage: image)
                     .resizable()
                     .frame(width: size, height: size)
             } else {

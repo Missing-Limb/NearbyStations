@@ -40,4 +40,5 @@ extension Notification.Name {
     static let startUpdatingStations = Notification.Name("startUpdatingStations")
     static let stationsInitialized = Notification.Name("stationsInitialized")
     static let stationsUpdated = Notification.Name("stationsUpdated")
+    static let stationsRetrieved = Notification.Name("stationsRetrieved")
 }

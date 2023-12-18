@@ -95,7 +95,7 @@ struct ToggleButton<Content: View>: View {
                         .accessibilityHidden(true)
                 }
                 .padding()
-                .background( state.wrappedValue ? .accent : .clear)
+                .correctStyleBased(on: state.wrappedValue)
                 .overlay {
                     if let label = label {
                         if let otherLabel = otherLabel {
@@ -123,5 +123,22 @@ struct ToggleButton<Content: View>: View {
             .font(.title3)
             .fontWeight(.bold)
         }
+    }
+}
+
+private struct GetCorrectStyleBasedOnABool: ViewModifier {
+    var value: Bool
+    func body(content: Content) -> some View {
+        if value {
+            content.background(.tint)
+        } else {
+            content.background(.clear)
+        }
+    }
+}
+
+extension View {
+    func correctStyleBased(on value: Bool) -> some View {
+        modifier(GetCorrectStyleBasedOnABool(value: value))
     }
 }

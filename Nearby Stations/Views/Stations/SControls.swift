@@ -37,7 +37,7 @@ struct SControls: View {
                             .lineLimit(1)
                             .font(.headline)
                             .fontWeight(.bold)
-                        Text(station.song?.artistName ?? "Loading...")
+                        Text(station.song?.artist ?? "Loading...")
                             .lineLimit(1)
                             .font(.subheadline)
                             .fontWeight(.semibold)
@@ -59,23 +59,7 @@ struct SControls: View {
                 Button {
                     DispatchQueue.main.async {
                         withAnimation {
-                            if model.isPlaying {
-                                if model.listened == model.focused {
-                                    model.isPlaying = false
-                                }
-                            } else {
-                                model.isPlaying = true
-                            }
-                            if model.isPlaying {
-                                model.listened = model.focused
-                                if model.focused != NSSStation.default {
-                                    model.isBroadcasting = false
-                                }
-                                if let first = model.closestStations.firstDifferent,
-                                   model.focused != first {
-                                    model.isLiveListening = false
-                                }
-                            }
+                            model.updatePlayingStatus()
                         }
                     }
                 } label: {

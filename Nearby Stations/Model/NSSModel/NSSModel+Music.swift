@@ -13,12 +13,14 @@ import MusicKit
 extension NSSModel {
 
     public func play() async {
-        if !self.isPlaying {
-            self.isPlaying.toggle()
-        }
+        NSSMusic.play()
     }
 
     public func play(song: Song?) async {
+        await self.play()
+    }
+
+    public func play(song: NSSSong?) async {
         await self.play()
     }
 

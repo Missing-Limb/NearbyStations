@@ -16,7 +16,9 @@ extension NSSStationManagerDelegate where Self == DebugNSSStationManagerDelegate
     }
 }
 
-class DebugNSSStationManagerDelegate: NSSStationManagerDelegate {
+protocol DebugNSSStationManagerDelegateProtocol: NSSStationManagerDelegate {}
+
+extension DebugNSSStationManagerDelegateProtocol {
     func manager(_ station: NSSStation, willInit `self`: NSSStation) {
         Logger.stationDelegate.debug("willInit - self: \(String(describing: `self`))")
     }
@@ -69,3 +71,5 @@ class DebugNSSStationManagerDelegate: NSSStationManagerDelegate {
         Logger.stationDelegate.debug("didUpdateSong")
     }
 }
+
+class DebugNSSStationManagerDelegate: DebugNSSStationManagerDelegateProtocol {}

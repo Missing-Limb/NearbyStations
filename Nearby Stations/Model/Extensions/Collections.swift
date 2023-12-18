@@ -7,6 +7,7 @@
 
 import Foundation
 import CoreLocation
+import CloudKit
 import Collections
 import OrderedCollections
 
@@ -82,6 +83,26 @@ extension Set<NSSStation> {
             } else {
                 false
             }
+        })
+    }
+}
+
+extension Array<CKRecord> {
+    func sorted(relativeTo location: CLLocation) -> [Self.Element] {
+        self.sorted(by: { (lhs, rhs) in
+            let lhl = lhs.value(forKey: "location") as? CLLocation
+            let rhl = rhs.value(forKey: "location") as? CLLocation
+            return lhl?.distance(from: location) ?? 0 < rhl?.distance(from: location) ?? 0
+        })
+    }
+}
+
+extension Set<CKRecord> {
+    func sorted(relativeTo location: CLLocation) -> [Self.Element] {
+        self.sorted(by: { (lhs, rhs) in
+            let lhl = lhs.value(forKey: "location") as? CLLocation
+            let rhl = rhs.value(forKey: "location") as? CLLocation
+            return lhl?.distance(from: location) ?? 0 < rhl?.distance(from: location) ?? 0
         })
     }
 }

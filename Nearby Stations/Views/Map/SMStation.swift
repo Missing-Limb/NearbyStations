@@ -11,41 +11,31 @@ import OSLog
 struct SMStation: View {
 
     private var isDefault: Bool {
-        Logger.view.debug("SMStation - isDefault - computed")
-        return station == .default
+        station == .default
     }
 
     private var isFocused: Bool {
-        Logger.view.debug("SMStation - isFocused - computed")
-        return model.focused == station
+        model.focused == station
     }
 
     private var isListened: Bool {
-        Logger.view.debug("SMStation - isListened - computed")
-        return model.listened == station
+        model.listened == station
+    }
+
+    private var shouldBeHighlighted: Bool {
+        isListened && model.isPlaying
     }
 
     private var isRadiating: Bool {
-        Logger.view.debug("SMStation - isRadiating - computed")
-        return model.isPlaying && isListened &&
-            (!isDefault || isDefault && model.isBroadcasting)
+        model.isPlaying && isListened && (!isDefault || isDefault && model.isBroadcasting)
     }
 
-    private var strokeColor: Color {
-        return if isDefault,
-                  isListened,
-                  model.isPlaying,
-                  !model.isLiveListening {
-            .accent
-        } else {
-            .white
-        }
+    private var animation: Animation {
+        isRadiating ? .easeInOut(duration: 2).repeatForever(autoreverses: false) : .easeInOut(duration: 2)
     }
-
-    private var animation: Animation = .easeInOut(duration: 2)
 
     private var annotationSize: CGFloat {
-        isFocused ? 48.0 : 32.0
+        isFocused ? 64.0 : 32.0
     }
 
     @State      private var amount: CGFloat = 0.0
@@ -58,43 +48,43 @@ struct SMStation: View {
 
     var body: some View {
         Button {
-            DispatchQueue.main.async {
-                withAnimation {
-                    model.focused = station
-                }
-            }
+            withAnimation { model.focused = station }
         } label: {
             SImage(station, size: annotationSize)
                 .clipShape(Circle())
-                .overlay {
-                    Circle()
-                        .stroke(strokeColor, lineWidth: 3 )
-                        .foregroundStyle(.clear)
+                .background {
+                    ZStack {
+                        Circle()
+                            .stroke(.white, lineWidth: 8)
+
+                        Circle()
+                            .stroke(Color(white: 0.1, opacity: 0.5), lineWidth: 0.5)
+                    }
                 }
-                .shadow(color: Color(white: 0, opacity: 0.2), radius: 10, y: 2)
-        }
-        .buttonStyle(BlankButton())
-        .frame(width: 200, height: 200)
-        .background {
-            Circle()
-                .foregroundStyle(.accent)
-                .opacity(1 - amount)
-                .scaleEffect(amount)
-                .blur(radius: 10 * amount)
-                .zIndex(0)
-                .onAppear {
-                    Logger.view.debug("SMStation - Button:background(Circle)")
-                    DispatchQueue.global(qos: .userInteractive).async {
-                        withAnimation( isRadiating
-                                        ? animation.repeatForever(autoreverses: true)
-                                        : animation
-                        ) {
-                            self.amount = 1
-                        } completion: {
-                            Logger.view.debug("Listening Wave Animation - Animation finished")
-                        }
+                .padding()
+                .background {
+                    if shouldBeHighlighted {
+                        Circle()
+                            .foregroundStyle(.tint)
+                    } else {
+                        Circle()
+                            .foregroundStyle(.clear)
                     }
                 }
         }
+        .buttonStyle(BlankButton())
+        .frame(width: 300, height: 300)
+        .background {
+            Circle()
+                .foregroundStyle(.tint)
+                .opacity(isRadiating ? 1 - amount : 0)
+                .scaleEffect(amount)
+                .blur(radius: 10 * amount)
+                .zIndex(-10)
+                .onAppear {
+                    withAnimation(animation) { amount = 1.0 }
+                }
+        }
     }
+
 }

@@ -19,6 +19,8 @@ extension Logger {
     static let stationDelegate = Logger(subsystem: subsystem, category: "NSSStationManagerDelegate")
     static let storage = Logger(subsystem: subsystem, category: "NSSStorage()")
     static let storageDelegate = Logger(subsystem: subsystem, category: "NSSStorageManagerDelegate")
+    static let cloud = Logger(subsystem: subsystem, category: "NSSCloud()")
+    static let cloudDelegate = Logger(subsystem: subsystem, category: "NSSCloudManagerDelegate")
     static let music = Logger(subsystem: subsystem, category: "NSSMusic()")
     static let musicDelegate = Logger(subsystem: subsystem, category: "NSSMusicManagerDelegate")
     static let tips = Logger(subsystem: subsystem, category: "NSSTips()")

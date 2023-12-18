@@ -23,6 +23,15 @@ final class NSSStorage: NSObject, ObservableObject {
         }
     }
 
+    @AppStorage("myID")
+    public var myID: String = UUID().uuidString
+
+    @AppStorage("selectedAccent")
+    public var selectedAccent: String = "Apple Music"
+
+    @AppStorage("connectedServices")
+    public var connectedServices: Services.RawValue = "Apple Music"
+
     @AppStorage("myStationName")
     public var myStationName: String = "My Station" {
         willSet {
