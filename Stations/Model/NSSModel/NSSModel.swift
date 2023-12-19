@@ -94,7 +94,18 @@ final class NSSModel: NSObject {
         stations != nil ? stations!.union([.default]) : [.default]
     }
 
-    public var closestStations: Deque<NSSStation> = []
+    public var closestStations: Deque<NSSStation> = [] {
+        didSet {
+            if isLiveListening {
+                if let first = self.closestStations.first,
+                   let listened = self.listened {
+                    if listened.song?.id.rawValue != first.song?.id.rawValue {
+                        self.updateListenedStation(to: self.closestStations.first, withFocus: true)
+                    }
+                }
+            }
+        }
+    }
 
     public var allClosestStations: Deque<NSSStation> {
         var closestStations = closestStations
